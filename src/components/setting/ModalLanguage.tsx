@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Modal, List, Snackbar } from 'react-native-paper'
-import { ASlanguage, dark, dimensionHeight, dimensionWidth, font, fontStandard, primary, white } from '@utils/constant'
+import { betawi, dark, dimensionHeight, dimensionWidth, durationSnackBar, English, font, fontStandard, Indonesia, jawa, listFeel, Melayu, minang, primary, regular, sunda, white } from '@utils/constant'
 import ButtonCustom from '@components/ButtonCustom'
 import useLanguage from '@hooks/useSetting'
 import { useAtom } from 'jotai'
@@ -13,11 +13,16 @@ const ModalLanguage = ({ visible, hideModal }: { visible: boolean, hideModal: ()
     const [language, setLanguage] = useAtom(languageAtom)
     const [feel, setFeel] = useAtom(feelAtom)
     const { translate } = useLanguage()
+    const theFeel = feel ? feel : regular
     const changeLang = (lang: string) => {
         setLanguage(lang)
-        if(lang == 'ID') setExpanded(!expanded)
+        if(lang == Indonesia) setExpanded(!expanded)
     }
-    const onDismissSnackBar = () => setVisibleSnackBar(false)
+
+    const changeFeel = (feel: string) => {
+        setVisibleSnackBar(false)
+        setFeel(feel)
+    }
 
     return (
         <>
@@ -26,46 +31,30 @@ const ModalLanguage = ({ visible, hideModal }: { visible: boolean, hideModal: ()
                     <List.Accordion
                         title="Bahasa Indonesia"
                         titleStyle={{ color: expanded ? primary : dark }}
-                        left={props => <List.Icon {...props} color={expanded || language === 'ID' ? primary : dark} icon="flag" />}
+                        left={props => <List.Icon {...props} color={expanded || language === Indonesia ? primary : dark} icon="flag" />}
                         expanded={expanded}
-                        onPress={() => changeLang('ID')}>
-                        <List.Item
-                            title="Biasa"
-                            titleStyle={{ color: feel === 'Biasa' ? primary : dark }}
-                            onPress={() => setFeel('biasa')}
-                            left={props => <List.Icon {...props} color={feel === 'biasa' ? primary : dark} icon="palette" />} />
-                        <List.Item
-                            title="Campur Sunda"
-                            titleStyle={{ color: feel === 'sunda' ? primary : dark }}
-                            onPress={() => setFeel('sunda')}
-                            left={props => <List.Icon {...props} color={feel === 'sunda' ? primary : dark} icon="palette" />} />
-                        <List.Item
-                            title="Campur Jawa"
-                            titleStyle={{ color: feel === 'jawa' ? primary : dark }}
-                            onPress={() => setFeel('jawa')}
-                            left={props => <List.Icon {...props} color={feel === 'jawa' ? primary : dark} icon="palette" />} />
-                        <List.Item
-                            title="Campur Minang"
-                            titleStyle={{ color: feel === 'minang' ? primary : dark }}
-                            onPress={() => setFeel('minang')}
-                            left={props => <List.Icon {...props} color={feel === 'minang' ? primary : dark} icon="palette" />} />
-                        <List.Item
-                            title="Campur Betawi"
-                            titleStyle={{ color: feel === 'betawi' ? primary : dark }}
-                            onPress={() => setFeel('betawi')}
-                            left={props => <List.Icon {...props} color={feel === 'betawi' ? primary : dark} icon="palette" />} />
+                        onPress={() => changeLang(Indonesia)}>
+                        {listFeel.map(item => 
+                            <List.Item
+                                key={item.id}
+                                title={item.title}
+                                titleStyle={{ color: theFeel === item.id ? primary : dark }}
+                                onPress={() => changeFeel(item.id)}
+                                left={props => <List.Icon {...props} color={theFeel === item.id ? primary : dark} icon="palette" />} 
+                            />    
+                        )}
                     </List.Accordion>
                     <List.Item
                         title="English"
-                        titleStyle={{ color: language === 'EN' ? primary : dark }}
-                        left={props => <List.Icon {...props} color={language === 'EN' ? primary : dark} icon="flag" />}
-                        onPress={() => changeLang('EN')}
+                        titleStyle={{ color: language === English ? primary : dark }}
+                        left={props => <List.Icon {...props} color={language === English ? primary : dark} icon="flag" />}
+                        onPress={() => changeLang(English)}
                     />
                     <List.Item
                         title="Bahasa Melayu"
-                        titleStyle={{ color: language === 'MY' ? primary : dark }}
-                        left={props => <List.Icon {...props} color={language === 'MY' ? primary : dark} icon="flag" />}
-                        onPress={() => changeLang('MY')}
+                        titleStyle={{ color: language === Melayu ? primary : dark }}
+                        left={props => <List.Icon {...props} color={language === Melayu ? primary : dark} icon="flag" />}
+                        onPress={() => changeLang(Melayu)}
                     />
                 </List.Section>
                 <View style={styles.buttonContainer}>
@@ -74,7 +63,8 @@ const ModalLanguage = ({ visible, hideModal }: { visible: boolean, hideModal: ()
             </Modal>
             <Snackbar
                 visible={visibleSnackBar}
-                onDismiss={onDismissSnackBar}
+                onDismiss={() => setVisibleSnackBar(false)}
+                duration={durationSnackBar}
             >
                 <Text style={styles.textSnackBar}>Pengen diingetin rutinitas apa sama {translate('aku')}?</Text>
             </Snackbar>

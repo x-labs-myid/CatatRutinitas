@@ -40,9 +40,10 @@ export const getAsyncStorage = async (key: string) => {
         if (value !== null) {
             return JSON.parse(value)
         }
-        return null
+        return undefined
     } catch (e) {
         console.log(e)
+        return undefined
     }
 }
 

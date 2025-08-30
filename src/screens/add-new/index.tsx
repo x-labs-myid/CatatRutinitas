@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { TextInput, Text, Icon } from 'react-native-paper'
+import { TextInput } from 'react-native-paper'
 import ButtonCustom from '@components/ButtonCustom'
-import { Alert, ScrollView, View } from 'react-native'
-import ActionSheetStatic from '@components/ActionSheetStatic'
+import { Alert, ScrollView } from 'react-native'
 import styles from './styles'
-import { primary, sizeIconExtra } from '@utils/constant'
+import { primary } from '@utils/constant'
 import CalendarRangePicker from '@components/CalendarRangePicker'
+import useDB from '@hooks/useDB'
+import { v4 as uuidv4 } from 'uuid'
 
 const AddNewScreen = () => {
     const [name, setName] = useState<string>('')
@@ -13,8 +14,19 @@ const AddNewScreen = () => {
     const [startDate, setStartDate] = useState<string>('')
     const [endDate, setEndDate] = useState<string>('')
 
+    const { insert } = useDB()
+
     const onSubmit = () => {
-        Alert.alert(`Sukses`, `Rutinitas lu udah disimpen`)
+        if (!name || !description || !startDate || !endDate) return Alert.alert('Error', 'Semua field harus diisi')
+        const uuid = uuidv4()
+        insert({
+            routine_id: uuid,
+            name: name,
+            description: description,
+            start_date: startDate,
+            end_date: endDate,
+            is_completed: false,
+        })
     }
 
     return (
@@ -44,7 +56,7 @@ const AddNewScreen = () => {
                 />
                 <ButtonCustom
                     title="Simpan"
-                    onPress={() => onSubmit()}
+                    onPress={onSubmit}
                 />
             </ScrollView>
         </>

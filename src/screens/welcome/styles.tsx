@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from "react-native"
+import { StyleSheet } from "react-native"
 import { border_radius_button, dimensionHeight, dimensionWidth, font, fontStandard, fontTitle, primary, white } from "@utils/constant"
 
 const styles = StyleSheet.create({
@@ -25,9 +25,6 @@ const styles = StyleSheet.create({
         bottom: dimensionHeight * 0.015, 
         padding: 10,
         backgroundColor: white
-    },
-    inputText: {
-        marginBottom: 10
     },
     button: {
         width: '100%',

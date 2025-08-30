@@ -5,9 +5,28 @@ import { useNavigation } from "@react-navigation/native"
 import { DashboardScreenNavigationProp } from "@types/navigation"
 import { Icon, Text } from "react-native-paper"
 import { primary, sizeIconRegular, white } from "@utils/constant"
+import { useEffect, useState } from "react"
+import { RoutineDB } from "@types/db"
+import useDB from "@hooks/useDB"
 
 const DashboardScreen = () => {
     const navigation = useNavigation<DashboardScreenNavigationProp>()
+    const [listRoutine, setListRoutine] = useState<RoutineDB[]>([])
+    const { select } = useDB()
+
+    const getRoutine = async () => {
+        const data = await select()
+        const result = data as unknown as RoutineDB[]
+        console.log(result)
+        setListRoutine(result)
+    }
+
+    // useEffect(() => {
+    //     getRoutine()
+    //     return () => {
+    //         setListRoutine([])
+    //     }
+    // }, [listRoutine])
     return (
         <View style={styles.container}>
             <View style={styles.wrapIcon}>

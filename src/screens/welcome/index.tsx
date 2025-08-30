@@ -1,18 +1,15 @@
-import { Alert, TouchableOpacity, View } from 'react-native';
-import { List, Text, TextInput } from 'react-native-paper'
+import { View } from 'react-native';
+import { List, Text } from 'react-native-paper'
 import ActionSheetStatic from '@components/ActionSheetStatic'
 import styles from './styles';
-import { primary, white } from '@utils/constant';
+import { primary } from '@utils/constant';
 import ButtonCustom from '@components/ButtonCustom';
-import { useNavigation } from '@react-navigation/native';
-import { CommonActions } from '@react-navigation/native';
-import { WelcomeScreenNavigationProp } from '@types/navigation';
-import { useAtom } from 'jotai';
-import { userAtom } from '@store/persist';
+import ModalInputName from '@components/welcome/ModalInputName';
+import { useState } from 'react';
 
 const WelcomeScreen = () => {
-    const navigation = useNavigation<WelcomeScreenNavigationProp>()
-    const [user, setUser] = useAtom(userAtom)
+    const [visible, setVisible] = useState<boolean>(false)
+
     return (
         <>
             <View style={styles.container}>
@@ -56,31 +53,13 @@ const WelcomeScreen = () => {
                     left={props => <List.Icon {...props} icon="flag" />}
                 />
                 <View style={styles.wrapBottom}>
-                    <TextInput
-                        placeholder="Masukin nama kamu"
-                        mode='outlined'
-                        activeOutlineColor={primary}
-                        left={<TextInput.Icon icon="account" />}
-                        value={user || ''}
-                        onChangeText={value => setUser(value)}
-                        style={styles.inputText}
-                    />
                     <ButtonCustom
                         title="Lanjut"
-                        onPress={() => {
-                            if(user == null) return Alert.alert('Error', 'Nama ga boleh kosong!')
-                            navigation.dispatch(
-                                CommonActions.reset({
-                                    index: 0,
-                                    routes: [
-                                        { name: 'Dashboard' }
-                                    ]
-                                })
-                            )
-                        }}
+                        onPress={() => setVisible(true)}
                     />
                 </View>
             </ActionSheetStatic>
+            <ModalInputName visible={visible} hideModal={() => setVisible(false)} />
         </>
     )
 }

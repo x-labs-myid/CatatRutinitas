@@ -1,6 +1,6 @@
 import { atomWithStorage } from 'jotai/utils';
 import { getAsyncStorage, removeAsyncStorage, setAsyncStorage } from '@utils/index';
-import { primary } from '@utils/constant';
+import { Indonesia, primary, regular } from '@utils/constant';
 
 export const userAtom = atomWithStorage<string | null>('user', null, {
     getItem: getAsyncStorage,
@@ -14,13 +14,13 @@ export const themeAtom = atomWithStorage<string>('theme', primary, {
     removeItem: removeAsyncStorage,
 });
 
-export const languageAtom = atomWithStorage<string>('language', 'ID', {
+export const languageAtom = atomWithStorage<string>('language', Indonesia, {
     getItem: getAsyncStorage,
     setItem: setAsyncStorage,
     removeItem: removeAsyncStorage,
 });
 
-export const feelAtom = atomWithStorage<string>('feel', 'biasa', {
+export const feelAtom = atomWithStorage<string>('feel', regular, {
     getItem: getAsyncStorage,
     setItem: setAsyncStorage,
     removeItem: removeAsyncStorage,

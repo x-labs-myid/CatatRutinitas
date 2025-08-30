@@ -30,7 +30,40 @@ export const border_radius_button = 7.5
 // Async Storage
 export const ASlanguage = `language`
 
+// table watermelonDB
+export const tableRoutine = `routines`
+
 // Language
+export const Indonesia = `ID`
+export const English = `EN`
+export const Melayu = `MY`
+export const regular = `biasa`
+export const sunda = `sunda`
+export const jawa = `jawa`
+export const minang = `minang`
+export const betawi = `betawi`
+export const listFeel = [
+    {
+        id: regular,
+        title: 'Biasa'
+    },
+    {
+        id: sunda,
+        title: 'Campur Sunda'
+    },
+    {
+        id: jawa,
+        title: 'Campur Jawa'
+    },
+    {
+        id: minang,
+        title: 'Campur Minang'
+    },
+    {
+        id: betawi,
+        title: 'Campur Betawi'
+    },
+]
 export const traslateIndonesia: { [key: string]: { [key: string]: string } } = {
     'biasa': {
         'aku': 'aku',
@@ -53,4 +86,7 @@ export const traslateIndonesia: { [key: string]: { [key: string]: string } } = {
         'kamu': 'lu'
     }
 }
+
+// extras
+export const durationSnackBar = 1500
   

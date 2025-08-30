@@ -1,16 +1,17 @@
 import { useAtom } from "jotai"
 import { atomWithStorage } from 'jotai/utils'
 import { languageAtom, feelAtom } from "@store/persist"
-import { traslateIndonesia } from "@utils/constant"
+import { English, Indonesia, Melayu, traslateIndonesia } from "@utils/constant"
 
 const useLanguage = () => {
     const [language, setLanguage] = useAtom(languageAtom)
     const [feel, setFeel] = useAtom(feelAtom)
     
     function translate(word: string) {
-        if(language === 'id' && feel !== null) return traslateIndonesia[feel][word]
-        if(language === 'en') return word
-        if(language === 'my') return word
+        if(language === English) return word
+        if(language === Melayu) return word
+        if([Indonesia, undefined].includes(language) && feel !== null) return traslateIndonesia[feel][word]
+        else return word
     }
 
     function theme() {

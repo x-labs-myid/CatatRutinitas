@@ -1,21 +1,20 @@
-import { useDatabase } from '@nozbe/watermelondb/hooks';
 import { RoutineDB } from '../types/db';
+import { tableRoutine } from '@utils/constant';
+import database from '@services/db_local';
 
 const useDB = () => {
-    const db = useDatabase()
-
     function select() {
-        return db.get('routines')
+        return database.get(tableRoutine)
     }
 
     function find(id: string) {
-        return db.get('routines').find(id)
+        return database.get(tableRoutine).find(id)
     }
 
     async function insert(routine: RoutineDB) {
-        return await db.get('routines').create((record) => {
+        return await database.get(tableRoutine).create((record) => {
             const newRoutine = record as unknown as RoutineDB
-            newRoutine.title = routine.title;
+            newRoutine.name = routine.name;
             newRoutine.description = routine.description;
             newRoutine.start_date = routine.start_date;
             newRoutine.end_date = routine.end_date;
@@ -24,8 +23,8 @@ const useDB = () => {
     }
 
     async function update(id: string, routine: RoutineDB) {
-        await db.write(async () => {
-            const find = await db.get('routines').find(id);
+        await database.write(async () => {
+            const find = await database.get(tableRoutine).find(id);
 
             await find.update((record) => {
                 const updated = record as unknown as RoutineDB;
@@ -35,8 +34,8 @@ const useDB = () => {
     }
 
     async function del(id: string) {
-        await db.write(async () => {
-            const find = await db.get('routines').find(id);
+        await database.write(async () => {
+            const find = await database.get(tableRoutine).find(id);
 
             await find.destroyPermanently();
         });

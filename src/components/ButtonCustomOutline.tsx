@@ -14,7 +14,7 @@ const ButtonCustomOutline = ({ title, onPress }: { title: string, onPress: () =>
 
 const styles = StyleSheet.create({
     button: {
-        paddingVertical: 12.5,
+        paddingVertical: 12,
         paddingHorizontal: 20,
         borderRadius: 10,
         borderWidth: 2,

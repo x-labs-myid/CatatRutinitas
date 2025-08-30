@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Modal, List, Snackbar } from 'react-native-paper'
-import { betawi, dark, dimensionHeight, dimensionWidth, durationSnackBar, English, font, fontStandard, Indonesia, jawa, listFeel, Melayu, minang, primary, regular, sunda, white } from '@utils/constant'
+import { dark, dimensionHeight, dimensionWidth, durationSnackBar, English, font, fontStandard, Indonesia, listFeel, Melayu, primary, regular, white } from '@utils/constant'
 import ButtonCustom from '@components/ButtonCustom'
 import useSetting from '@hooks/useSetting'
 import { useAtom } from 'jotai'

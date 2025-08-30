@@ -12,6 +12,8 @@ export const mySchema = appSchema({
         { name: 'description', type: 'string' },
         { name: 'start_date', type: 'string' },
         { name: 'end_date', type: 'string' },
+        { name: 'process_day', type: 'number' },
+        { name: 'total_target_day', type: 'number' },
         { name: 'is_completed', type: 'boolean' },
       ],
     }),

@@ -1,11 +1,13 @@
 import { primary } from '@utils/constant'
+import { countDiffDay } from '@utils/index'
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 
-const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, endDate: string) => void}) => {
+const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, endDate: string, diffDay: number) => void}) => {
     const [startDate, setStartDate] = useState<string | null>(null)
     const [endDate, setEndDate] = useState<string | null>(null)
+    const [totalTargetDay, setTotalTargetDay] = useState<number | 0>(0)
 
     const onDayPress = (day: any) => {
         const selectedDate = day.dateString
@@ -18,6 +20,10 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
                 setStartDate(selectedDate)
             } else {
                 setEndDate(selectedDate)
+                const start = new Date(startDate)
+                const end = new Date(selectedDate)
+                const diffDay = countDiffDay(start, end)
+                setTotalTargetDay(diffDay)
             }
         }
     }
@@ -73,7 +79,7 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
     }
 
     useEffect(() => {
-        if(startDate && endDate) onDateChange(startDate, endDate)
+        if(startDate && endDate) onDateChange(startDate, endDate, totalTargetDay)
     }, [startDate, endDate])
 
     return (

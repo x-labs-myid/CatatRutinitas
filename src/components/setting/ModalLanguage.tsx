@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { Modal, List, Snackbar } from 'react-native-paper'
 import { betawi, dark, dimensionHeight, dimensionWidth, durationSnackBar, English, font, fontStandard, Indonesia, jawa, listFeel, Melayu, minang, primary, regular, sunda, white } from '@utils/constant'
 import ButtonCustom from '@components/ButtonCustom'
-import useLanguage from '@hooks/useSetting'
+import useSetting from '@hooks/useSetting'
 import { useAtom } from 'jotai'
 import { languageAtom, feelAtom } from '@store/persist'
 
@@ -12,7 +12,7 @@ const ModalLanguage = ({ visible, hideModal }: { visible: boolean, hideModal: ()
     const [visibleSnackBar, setVisibleSnackBar] = useState<boolean>(false)
     const [language, setLanguage] = useAtom(languageAtom)
     const [feel, setFeel] = useAtom(feelAtom)
-    const { translate } = useLanguage()
+    const { translate } = useSetting()
     const theFeel = feel ? feel : regular
     const changeLang = (lang: string) => {
         setLanguage(lang)

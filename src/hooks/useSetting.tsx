@@ -3,7 +3,7 @@ import { atomWithStorage } from 'jotai/utils'
 import { languageAtom, feelAtom } from "@store/persist"
 import { English, Indonesia, Melayu, traslateIndonesia } from "@utils/constant"
 
-const useLanguage = () => {
+const useSetting = () => {
     const [language, setLanguage] = useAtom(languageAtom)
     const [feel, setFeel] = useAtom(feelAtom)
     
@@ -24,4 +24,4 @@ const useLanguage = () => {
     }
 }
 
-export default useLanguage
+export default useSetting

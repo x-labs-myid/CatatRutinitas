@@ -1,44 +1,76 @@
 import { RoutineDB } from '../types/db';
 import { tableRoutine } from '@utils/constant';
 import database from '@services/db_local';
+import Routine from '@services/db_local/model';
 
 const useDB = () => {
     function select() {
-        return database.get(tableRoutine)
+        try {
+            return database.get<Routine>(tableRoutine).query().fetch()
+        } catch (error) {
+            console.log('error select: ', error)
+            return []
+        }
     }
 
     function find(id: string) {
-        return database.get(tableRoutine).find(id)
+        try {
+            return database.get<Routine>(tableRoutine).find(id)
+        } catch (error) {
+            console.log(`error find ${id}: `, error)
+            return null
+        }
     }
 
-    async function insert(routine: RoutineDB) {
-        return await database.get(tableRoutine).create((record) => {
-            const newRoutine = record as unknown as RoutineDB
-            newRoutine.name = routine.name;
-            newRoutine.description = routine.description;
-            newRoutine.start_date = routine.start_date;
-            newRoutine.end_date = routine.end_date;
-            newRoutine.is_completed = routine.is_completed;
-        });
+    async function insert(routineData: RoutineDB) {
+        try {
+            await database.write(async () => {
+                await database.get<Routine>(tableRoutine).create((routine) => {
+                    routine.name = routineData.name
+                    routine.description = routineData.description
+                    routine.startDate = routineData.startDate
+                    routine.endDate = routineData.endDate
+                    routine.processDay = routineData.processDay
+                    routine.totalTargetDay = routineData.totalTargetDay
+                    routine.isCompleted = routineData.isCompleted
+                })
+            })
+            return true
+        } catch (error) {
+            console.log('error insert', error)
+            return false
+        }
     }
 
     async function update(id: string, routine: RoutineDB) {
-        await database.write(async () => {
-            const find = await database.get(tableRoutine).find(id);
+        try {
+            await database.write(async () => {
+                const find = await database.get<Routine>(tableRoutine).find(id);
 
-            await find.update((record) => {
-                const updated = record as unknown as RoutineDB;
-                updated.is_completed = routine.is_completed;
-            });
-        });
+                await find.update((record) => {
+                    record.processDay = routine.processDay;
+                    record.isCompleted = routine.isCompleted;
+                });
+            })
+            return true
+        } catch (error) {
+            console.log(`error update ${id}: `, error)
+            return false
+        }
     }
 
     async function del(id: string) {
-        await database.write(async () => {
-            const find = await database.get(tableRoutine).find(id);
+        try {
+            await database.write(async () => {
+                const find = await database.get<Routine>(tableRoutine).find(id);
 
-            await find.destroyPermanently();
-        });
+                await find.destroyPermanently();
+            });
+            return true
+        } catch (error) {
+            console.log(`error delete ${id}: `, error)
+            return false
+        }
     }
 
     return {

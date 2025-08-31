@@ -11,8 +11,9 @@ import { userAtom } from '@store/persist';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const AuthenticatedStack = ({ user }: { user: string }) => (
+const AuthenticatedStack = ({ user }: { user: string | null }) => (
     <Stack.Navigator
+        initialRouteName="Dashboard"
         screenOptions={{
             headerStyle: { backgroundColor: primary },
             headerTitleStyle: { color: white },
@@ -39,6 +40,7 @@ const AuthenticatedStack = ({ user }: { user: string }) => (
 
 const UnauthenticatedStack = () => (
     <Stack.Navigator
+        initialRouteName="Welcome"
         screenOptions={{
             headerStyle: { backgroundColor: primary },
             headerTitleStyle: { color: white },
@@ -53,7 +55,7 @@ const UnauthenticatedStack = () => (
 const StackNavigation = () => {
     const [user] = useAtom(userAtom);
 
-    return user !== null ? (
+    return ![null, undefined, ''].includes(user) ? (
         <AuthenticatedStack user={user} />
     ) : (
         <UnauthenticatedStack />

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import { TextInput } from 'react-native-paper'
 import ButtonCustom from '@components/ButtonCustom'
-import { Alert, ScrollView } from 'react-native'
+import { Alert, ScrollView, ToastAndroid } from 'react-native'
 import styles from './styles'
 import { primary } from '@utils/constant'
 import CalendarRangePicker from '@components/CalendarRangePicker'
 import useDB from '@hooks/useDB'
-import { v4 as uuidv4 } from 'uuid'
 
 const AddNewScreen = () => {
     const [name, setName] = useState<string | null>(null)
@@ -17,19 +16,27 @@ const AddNewScreen = () => {
 
     const { insert } = useDB()
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if (!name || !description || !startDate || !endDate) return Alert.alert('Error', 'Semua field harus diisi')
-        const uuid = uuidv4()
-        insert({
-            routine_id: uuid,
+        const result = await insert({
             name: name,
             description: description,
-            start_date: startDate,
-            end_date: endDate,
-            process_day: 0,
-            total_target_day: totalTargetDay,
-            is_completed: false,
+            startDate: startDate,
+            endDate: endDate,
+            processDay: 0,
+            totalTargetDay: totalTargetDay,
+            isCompleted: false,
         })
+        if (result) {
+            setName(null)
+            setDescription(null)
+            setStartDate(null)
+            setEndDate(null)
+            setTotalTargetDay(0)
+            ToastAndroid.show('Data berhasil disimpan', ToastAndroid.SHORT)
+        } else {
+            ToastAndroid.show('Data gagal disimpan', ToastAndroid.SHORT)
+        }
     }
 
     useEffect(() => {

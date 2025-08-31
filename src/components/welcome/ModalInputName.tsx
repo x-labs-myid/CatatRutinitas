@@ -10,7 +10,6 @@ import { StyleSheet, Text, View } from "react-native"
 import { Modal, TextInput, Snackbar } from "react-native-paper"
 
 const ModalInputName = ({ visible, hideModal }: { visible: boolean, hideModal: () => void }) => {
-    const navigation = useNavigation<WelcomeScreenNavigationProp>()
     const [visibleSnackBar, setVisibleSnackBar] = useState<boolean>(false)
     const [name, setName] = useState<string>('')
     const [user, setUser] = useAtom(userAtom)
@@ -25,7 +24,6 @@ const ModalInputName = ({ visible, hideModal }: { visible: boolean, hideModal: (
     const onSubmit = () => {
         if(name == '') return setVisibleSnackBar(true) 
         setUser(name)
-        navigation.navigate('Dashboard')
     }
 
     return (

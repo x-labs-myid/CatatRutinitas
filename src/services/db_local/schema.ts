@@ -7,7 +7,6 @@ export const mySchema = appSchema({
     tableSchema({
       name: tableRoutine,
       columns: [
-        { name: 'routine_id', type: 'string' },
         { name: 'name', type: 'string' },
         { name: 'description', type: 'string' },
         { name: 'start_date', type: 'string' },

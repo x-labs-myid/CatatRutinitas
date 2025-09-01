@@ -1,4 +1,4 @@
-import { RoutineDB } from "@types/db"
+import { RoutineTable } from "@types/db"
 import { Card, Text, ProgressBar } from "react-native-paper"
 import { StyleSheet } from "react-native"
 import { dimensionHeight, dimensionWidth } from "@utils/constant"

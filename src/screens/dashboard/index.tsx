@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native"
 import { DashboardScreenNavigationProp } from "@types/navigation"
 import { useEffect, useState } from "react"
-import { RoutineDB } from "@types/db"
-import useDB from "@hooks/useDB"
+import { RoutineTable } from "@types/db"
+import useTableRoutine from "@hooks/useTableRoutine"
 import Empty from "@components/dashboard/Empty"
 import { FlatList } from "react-native"
 import RoutineItem from "@components/dashboard/RoutineItem"
@@ -11,10 +11,10 @@ import MenuAction from "@components/dashboard/MenuAction"
 const DashboardScreen = () => {
     const navigation = useNavigation<DashboardScreenNavigationProp>()
     const [listRoutine, setListRoutine] = useState<any[]>([])
-    const { select } = useDB()
+    const { select } = useTableRoutine()
     const [visible, setVisible] = useState<boolean>(false)
     const [idRoutine, setIdRoutine] = useState<string | null>(null)
-    const [item, setItem] = useState<RoutineDB | null>(null)
+    const [item, setItem] = useState<RoutineTable | null>(null)
 
     const getRoutine = async () => {
         const data = await select()

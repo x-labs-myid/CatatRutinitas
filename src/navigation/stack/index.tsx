@@ -1,13 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useAtom } from 'jotai';
+import { userAtom } from '@store/persist';
 import { RootStackParamList } from '@types/navigation';
+import { light_gray, primary, white } from '@utils/constant';
 import AddNewScreen from '@screens/add-new';
 import DashboardScreen from '@screens/dashboard';
 import SettingScreen from '@screens/setting';
 import WelcomeScreen from '@screens/welcome';
 import HeaderRight from '@components/dashboard/HeaderRight';
-import { light_gray, primary, white } from '@utils/constant';
-import { useAtom } from 'jotai';
-import { userAtom } from '@store/persist';
+import DetailScreen from '@screens/detail';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -35,6 +36,7 @@ const AuthenticatedStack = ({ user }: { user: string | null }) => (
             options={{ headerTitle: 'Bikin Rutinitas Baru' }}
         />
         <Stack.Screen name="Setting" component={SettingScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Detail" component={DetailScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
 );
 

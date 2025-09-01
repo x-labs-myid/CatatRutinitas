@@ -32,6 +32,7 @@ export const ASlanguage = `language`
 
 // table watermelonDB
 export const tableRoutine = `routines`
+export const tableCompleteRoutine = `complete_routine`
 
 // Language
 export const Indonesia = `ID`

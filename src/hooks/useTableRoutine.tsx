@@ -1,9 +1,9 @@
-import { RoutineDB } from '../types/db';
+import { RoutineTable } from '../types/db';
 import { tableRoutine } from '@utils/constant';
-import database from '@services/db_local';
-import Routine from '@services/db_local/model';
+import database from '@services/db_local/routine';
+import Routine from '@services/db_local/routine/model';
 
-const useDB = () => {
+const useTableRoutine = () => {
     function select() {
         try {
             return database.get<Routine>(tableRoutine).query().fetch()
@@ -22,7 +22,7 @@ const useDB = () => {
         }
     }
 
-    async function insert(routineData: RoutineDB) {
+    async function insert(routineData: RoutineTable) {
         try {
             await database.write(async () => {
                 await database.get<Routine>(tableRoutine).create((routine) => {
@@ -42,13 +42,18 @@ const useDB = () => {
         }
     }
 
-    async function update(id: string, routine: RoutineDB) {
+    async function update(id: string, routine: RoutineTable) {
         try {
             await database.write(async () => {
                 const find = await database.get<Routine>(tableRoutine).find(id);
 
                 await find.update((record) => {
+                    record.name = routine.name;
+                    record.description = routine.description;
+                    record.startDate = routine.startDate;
+                    record.endDate = routine.endDate;
                     record.processDay = routine.processDay;
+                    record.totalTargetDay = routine.totalTargetDay;
                     record.isCompleted = routine.isCompleted;
                 });
             })
@@ -82,4 +87,4 @@ const useDB = () => {
     }
 }
 
-export default useDB
+export default useTableRoutine

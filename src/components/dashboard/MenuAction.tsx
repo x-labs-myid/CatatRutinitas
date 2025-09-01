@@ -3,12 +3,12 @@ import * as React from 'react';
 import { StyleSheet, ToastAndroid, View } from 'react-native';
 import { Menu } from 'react-native-paper';
 import { Modal } from 'react-native-paper';
-import { RoutineDB } from '@types/db';
+import { RoutineTable } from '@types/db';
 import { Text } from 'react-native-paper';
-import useDB from '@hooks/useDB';
+import useTableRoutine from '@hooks/useTableRoutine';
 
-const MenuAction = ({ id, data, visible, hideModal }: { id: string, data: RoutineDB | null, visible: boolean, hideModal: (isModify: boolean) => void }) => {
-    const { update, del } = useDB()
+const MenuAction = ({ id, data, visible, hideModal }: { id: string, data: RoutineTable | null, visible: boolean, hideModal: (isModify: boolean) => void }) => {
+    const { update, del } = useTableRoutine()
     const deleteData = async () => {
         if (!id) return ToastAndroid.show('Data tidak ditemukan', ToastAndroid.SHORT)
         const result = await del(id)

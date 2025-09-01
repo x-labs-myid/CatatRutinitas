@@ -5,7 +5,7 @@ import { Alert, ScrollView, ToastAndroid } from 'react-native'
 import styles from './styles'
 import { primary } from '@utils/constant'
 import CalendarRangePicker from '@components/CalendarRangePicker'
-import useDB from '@hooks/useDB'
+import useTableRoutine from '@hooks/useTableRoutine'
 
 const AddNewScreen = () => {
     const [name, setName] = useState<string | null>(null)
@@ -14,7 +14,7 @@ const AddNewScreen = () => {
     const [endDate, setEndDate] = useState<string | null>(null)
     const [totalTargetDay, setTotalTargetDay] = useState<number | 0>(0)
 
-    const { insert } = useDB()
+    const { insert } = useTableRoutine()
 
     const onSubmit = async () => {
         if (!name || !description || !startDate || !endDate) return Alert.alert('Error', 'Semua field harus diisi')

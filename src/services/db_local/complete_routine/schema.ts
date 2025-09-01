@@ -1,7 +1,7 @@
 import { appSchema, tableSchema } from '@nozbe/watermelondb';
 import { tableRoutine } from '@utils/constant';
 
-export const mySchema = appSchema({
+const completeRoutineSchema = appSchema({
   version: 1,
   tables: [
     tableSchema({
@@ -18,3 +18,5 @@ export const mySchema = appSchema({
     }),
   ],
 });
+
+export default completeRoutineSchema

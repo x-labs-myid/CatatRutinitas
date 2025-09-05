@@ -7,14 +7,10 @@ module.exports = {
       {
         root: ['./src'],
         alias: {
-          '@screens': './src/screens',
-          '@components': './src/components',
-          '@utils': './src/utils',
-          '@store': './src/store',
+          '@modules': './src/modules',
+          '@shared': './src/shared',
           '@navigation': './src/navigation',
-          '@hooks': './src/hooks',
           '@services': './src/services',
-          '@types': './src/types',
           '@assets': './src/assets',
         },
       },

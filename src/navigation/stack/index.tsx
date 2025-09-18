@@ -7,8 +7,9 @@ import AddNewScreen from '@modules/add-new/screens';
 import DashboardScreen from '@modules/dashboard/screens';
 import SettingScreen from '@modules/setting/screens';
 import WelcomeScreen from '@modules/welcome/screens';
-import HeaderRight from '@modules/dashboard/components/HeaderRight';
+import HeaderRightDashboard from '@modules/dashboard/components/HeaderRight';
 import DetailScreen from '@modules/detail/screens';
+import HeaderRightAddNew from '@modules/add-new/components/HeaderRight';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -19,7 +20,7 @@ const AuthenticatedStack = ({ user }: { user: string | null }) => (
             headerStyle: { backgroundColor: primary },
             headerTitleStyle: { color: white },
             headerTintColor: white,
-            contentStyle: { backgroundColor: light_gray },
+            contentStyle: { backgroundColor: white },
         }}
     >
         <Stack.Screen
@@ -27,15 +28,18 @@ const AuthenticatedStack = ({ user }: { user: string | null }) => (
             component={DashboardScreen}
             options={{
                 headerTitle: `Hai ${user}`,
-                headerRight: () => <HeaderRight />,
+                headerRight: () => <HeaderRightDashboard />,
             }}
         />
         <Stack.Screen
             name="AddNew"
             component={AddNewScreen}
-            options={{ headerTitle: 'Bikin Rutinitas Baru' }}
+            options={{ 
+                headerTitle: 'Bikin Rutinitas Baru',
+                headerRight: () => <HeaderRightAddNew />
+            }}
         />
-        <Stack.Screen name="Setting" component={SettingScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Setting" component={SettingScreen} options={{ headerTitle: 'Pengaturan' }} />
         <Stack.Screen name="Detail" component={DetailScreen} />
     </Stack.Navigator>
 );
@@ -47,7 +51,7 @@ const UnauthenticatedStack = () => (
             headerStyle: { backgroundColor: primary },
             headerTitleStyle: { color: white },
             headerTintColor: white,
-            contentStyle: { backgroundColor: light_gray },
+            contentStyle: { backgroundColor: white },
         }}
     >
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />

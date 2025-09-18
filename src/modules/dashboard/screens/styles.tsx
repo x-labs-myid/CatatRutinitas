@@ -1,4 +1,4 @@
-import { dimensionHeight, primary } from "@shared/utils/constant"
+import { dimensionHeight, dimensionWidth, primary } from "@shared/utils/constant"
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
@@ -7,6 +7,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    flatlist: {
+        paddingVertical: dimensionHeight * 0.02,
+        paddingHorizontal: dimensionWidth * 0.04
     },
     wrapText: {
         marginVertical: dimensionHeight * 0.015

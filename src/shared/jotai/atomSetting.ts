@@ -25,3 +25,9 @@ export const feelAtom = atomWithStorage<string>('feel', regular, {
     setItem: setAsyncStorage,
     removeItem: removeAsyncStorage,
 });
+
+export const descRoutineAtom = atomWithStorage<boolean>('descRoutine', false, {
+    getItem: getAsyncStorage,
+    setItem: setAsyncStorage,
+    removeItem: removeAsyncStorage,
+});

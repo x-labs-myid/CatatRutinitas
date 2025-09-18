@@ -6,6 +6,9 @@ export const dimensionHeight = Dimensions.get('window').height
 
 // Color
 export const primary = `#1DA1F2`
+export const red = `#FF5C8D`
+export const green = `#00D26B`
+export const yellow = `#F9E56C`
 export const white = `#FFFFFF`
 export const light_gray = `#E1E8ED`
 export const dark_gray = `#66757F`
@@ -26,6 +29,10 @@ export const font = {
 export const sizeIconRegular = 24
 export const sizeIconExtra = 100
 export const border_radius_button = 7.5
+
+// Notification
+export const notificationChannelId = `Routine`
+export const notificationName = `Routine Notification Channel`
 
 // Async Storage
 export const ASlanguage = `language`

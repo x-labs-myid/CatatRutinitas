@@ -1,8 +1,6 @@
-import { Card, Text, ProgressBar } from "react-native-paper"
+import { Card, Text, ProgressBar, Button } from "react-native-paper"
 import { StyleSheet, View } from "react-native"
-import { dimensionHeight, dimensionWidth } from "@shared/utils/constant"
-import ButtonCustom from "@shared/components/ButtonCustom"
-import ButtonCustomOutline from "@shared/components/ButtonCustomOutline"
+import { dimensionHeight, dimensionWidth, primary, white } from "@shared/utils/constant"
 
 const RoutineItem = ({ item, onPress }: { item: any, onPress: (detail: unknown, type: string) => void }) => {
     return (
@@ -10,25 +8,30 @@ const RoutineItem = ({ item, onPress }: { item: any, onPress: (detail: unknown, 
             <Card style={styles.card}>
                 <Card.Title title={item.name} />
                 <Card.Content>
-                    <ProgressBar progress={item.processDay / item.totalTargetDay} />
+                    <ProgressBar progress={item.processDay / item.totalTargetDay} color={primary} />
                     <View style={styles.wrap}>
                         <Text>{item.processDay}/{item.totalTargetDay} Hari</Text>
-                        <Text>{item.startDate} s/d {item.endDate}</Text>
+                        <Text>Selesai: {item.endDate}</Text>
                     </View>
                     <View style={styles.wrap}>
-                        <ButtonCustom
-                            title="Selesai"
+                        <Button
+                            mode="contained"
+                            buttonColor={primary}
                             onPress={() => onPress(item, 'complete')}
-                        />
+                        >Selesai</Button>
                         <View style={styles.wrapButton}>
-                            <ButtonCustomOutline
-                                title="Ubah"
+                            <Button
+                                mode="outlined"
+                                theme={{ colors: { outline: primary } }}
+                                textColor={primary}
                                 onPress={() => onPress(item, 'modify')}
-                            />
-                            <ButtonCustomOutline
-                                title="Hapus"
+                            >Ubah</Button>
+                            <Button
+                                mode="outlined"
+                                theme={{ colors: { outline: primary } }}
+                                textColor={primary}
                                 onPress={() => onPress(item, 'delete')}
-                            />
+                            >Hapus</Button>
                         </View>
                     </View>
                 </Card.Content>
@@ -39,8 +42,7 @@ const RoutineItem = ({ item, onPress }: { item: any, onPress: (detail: unknown, 
 
 const styles = StyleSheet.create({
     card: {
-        marginVertical: dimensionHeight * 0.015,
-        marginHorizontal: dimensionWidth * 0.04
+        backgroundColor: white,
     },
     wrap: {
         flexDirection: 'row',

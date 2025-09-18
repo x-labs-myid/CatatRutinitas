@@ -62,5 +62,7 @@
 		<string>HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf</string>
 		<string>HvDTrial_Brandon_Grotesque_thin_italic-BF64a625c918a96.otf</string>
 	</array>
+	<key>NSUserNotificationUsageDescription</key>
+	<string>Kami akan mengirimkan notifikasi rutinitas.</string>
 </dict>
 </plist>

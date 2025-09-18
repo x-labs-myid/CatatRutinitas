@@ -1,9 +1,8 @@
-import ButtonCustom from "@shared/components/ButtonCustom"
 import { useNavigation } from "@react-navigation/native"
 import { DashboardScreenNavigationProp } from "@shared/types/navigation"
 import { dimensionHeight, primary, sizeIconRegular } from "@shared/utils/constant"
 import { StyleSheet, View } from "react-native"
-import { Icon, Text } from "react-native-paper"
+import { Button, Icon, Text } from "react-native-paper"
 
 const Empty = () => {
     const navigation = useNavigation<DashboardScreenNavigationProp>()
@@ -16,10 +15,13 @@ const Empty = () => {
                 <Text variant="titleLarge" style={styles.textCenter}>Rutinitas Ga ada</Text>
                 <Text variant="bodyMedium" style={styles.textCenter}>Buat rutinitas baru dan kerjain konsisten!</Text>
             </View>
-            <ButtonCustom
-                title="Skuy Mulai"
+            <Button
+                mode="contained"
+                buttonColor={primary}
                 onPress={() => navigation.navigate('AddNew')}
-            />
+            >
+                Skuy Mulai
+            </Button>
         </View>
     )
 }
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
     },
     wrapIcon: {
         padding: 3,
-        borderWidth: 2,
+        borderWidth: 1.2,
         borderColor: primary,
         borderRadius: '100%',
     }

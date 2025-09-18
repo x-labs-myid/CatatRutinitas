@@ -1,7 +1,7 @@
 import { primary } from '@shared/utils/constant'
 import { countDiffDay } from '@shared/utils/index'
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Alert, ToastAndroid } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 
 const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, endDate: string, diffDay: number) => void}) => {
@@ -9,10 +9,19 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
     const [endDate, setEndDate] = useState<string | null>(null)
     const [totalTargetDay, setTotalTargetDay] = useState<number | 0>(0)
 
+    const isBeforeToday = (dateStr: string) => {
+        const today = new Date()
+        const input = new Date(dateStr)
+        today.setHours(0, 0, 0, 0)
+        input.setHours(0, 0, 0, 0)
+        return input < today
+    }
+    
+
     const onDayPress = (day: any) => {
         const selectedDate = day.dateString
-
         if (!startDate || (startDate && endDate)) {
+            if(isBeforeToday(selectedDate)) return ToastAndroid.show('Tanggal mulai tidak boleh kurang dari hari ini', ToastAndroid.SHORT)
             setStartDate(selectedDate)
             setEndDate(null)
         } else if (startDate && !endDate) {

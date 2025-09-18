@@ -3,7 +3,7 @@ import { border_radius_button, dimensionHeight, dimensionWidth, font, fontStanda
 
 const styles = StyleSheet.create({
     container: {
-        flex: 0.4,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
@@ -31,7 +31,12 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: border_radius_button,
         backgroundColor: primary
-    }
+    },
+    inputText: {
+        marginBottom: 10,
+        backgroundColor: white,
+        width: dimensionWidth * 0.85
+    },
 })
 
 export default styles

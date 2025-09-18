@@ -1,29 +1,62 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import PushNotification from 'react-native-push-notification';
+import notifee from '@notifee/react-native';
+import { TimestampTrigger, TriggerType, RepeatFrequency } from '@notifee/react-native';
+import { notificationChannelId, notificationName } from './constant';
 
-export const createNotificationChannel = () => {
-    PushNotification.createChannel(
-        {
-            channelId: 'catat-rutinitas-channel', // harus sama dengan yg dipakai di notif
-            channelName: 'Catat Rutinitas Notifications',
-            importance: 4,
-            vibrate: true,
-        },
-        (created) => console.log(`createChannel returned '${created}'`)
-    )
+export const setupNotification = async () => {
+    await notifee.requestPermission();
+    await notifee.createChannel({
+        id: notificationChannelId,
+        name: notificationName,
+    });
 }
 
-export const scheduleRoutineNotification = (title: string, message: string, date: Date) => {
-    PushNotification.localNotificationSchedule({
-        channelId: 'catat-rutinitas-channel', // Sesuai yang kamu buat
-        title: title,
-        message: message,
-        date: date, // Tipe: JavaScript Date object
-        allowWhileIdle: true,
-        repeatType: 'day', // 'day', 'week', dst
-        soundName: 'default',
-        playSound: true,
-    })
+export const scheduleNotification = async ({ id, title, body, dateStr }: { id: string, title: string, body: string, dateStr: string }) => {
+    const date = new Date(dateStr);
+    date.setHours(5);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+
+    // Cek apakah waktu yang diset sudah lewat dari waktu sekarang
+    if (date.getTime() < new Date().getTime()) {
+        console.log("Scheduled time is in the past, adjusting to tomorrow.");
+        date.setDate(date.getDate() + 1); // Jika sudah lewat, set ke hari berikutnya
+    }
+
+    const trigger: TimestampTrigger = {
+        type: TriggerType.TIMESTAMP,
+        timestamp: date.getTime(),
+        repeatFrequency: RepeatFrequency.DAILY, // Ulang setiap hari
+    };
+
+    try {
+        await notifee.createTriggerNotification(
+            {
+                id: id,
+                title: title,
+                body: body,
+                android: {
+                    channelId: notificationChannelId, // Pastikan channel sudah benar
+                },
+                ios: {
+                    categoryId: notificationChannelId, // Pastikan category sudah benar
+                },
+            },
+            trigger
+        );
+        console.log("Notification scheduled successfully.");
+    } catch (error) {
+        console.error("Error scheduling notification:", error);
+    }
+}
+
+export const cancelNotification = async (id: string) => {
+    await notifee.cancelTriggerNotification(id);
+}
+
+export const cancelAllNotification = async () => {
+    await notifee.cancelAllNotifications();
 }
 
 export const setAsyncStorage = async (key: string, value: unknown) => {

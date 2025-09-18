@@ -24,24 +24,27 @@ const useTableRoutine = () => {
 
     async function insert(routineData: RoutineTable) {
         try {
-            await database.write(async () => {
-                await database.get<Routine>(tableRoutine).create((routine) => {
-                    routine.name = routineData.name
-                    routine.description = routineData.description
-                    routine.startDate = routineData.startDate
-                    routine.endDate = routineData.endDate
-                    routine.processDay = routineData.processDay
-                    routine.completeDate = routineData.completeDate
-                    routine.totalTargetDay = routineData.totalTargetDay
-                    routine.isCompleted = routineData.isCompleted
-                })
+          let newRoutine: Routine | null = null
+      
+          await database.write(async () => {
+            newRoutine = await database.get<Routine>(tableRoutine).create((routine) => {
+              routine.name = routineData.name
+              routine.description = routineData.description
+              routine.startDate = routineData.startDate
+              routine.endDate = routineData.endDate
+              routine.processDay = routineData.processDay
+              routine.completeDate = routineData.completeDate
+              routine.totalTargetDay = routineData.totalTargetDay
+              routine.isCompleted = routineData.isCompleted
             })
-            return true
+          })
+          // newRoutine.id sudah ada
+          return newRoutine!.id
         } catch (error) {
-            console.log('error insert', error)
-            return false
+          console.log('error insert', error)
+          return null
         }
-    }
+      }      
 
     async function update(id: string, routine: RoutineTable) {
         try {

@@ -1,11 +1,12 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RoutineTable } from "./db";
 
 export type RootStackParamList = {
     Dashboard: undefined;
     Welcome: undefined;
     Setting: undefined;
     AddNew: undefined;
-    Detail: { id: string };
+    Detail: { data: RoutineTable };
 }
 
 export type DashboardScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Dashboard'>

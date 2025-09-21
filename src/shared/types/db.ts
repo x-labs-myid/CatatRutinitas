@@ -1,15 +1,20 @@
 export type RoutineTable = {
-    name: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-    processDay: number;
-    completeDate: string;
-    totalTargetDay: number;
-    isCompleted: boolean;
+    id?: string;
+    name?: string;
+    description?: string;
+    startDate?: string;
+    endDate?: string;
+    processDay?: number;
+    completeDate?: string;
+    totalTargetDay?: number;
+    isCompleted?: boolean;
+    reminder?: string;
+    sync?: boolean;
 }
 
 export type CompleteRoutineTable = {
-    routineId: string;
-    date: string;
+    routineId?: string;
+    date?: string;
+    note?: string;
+    sync?: boolean;
 }

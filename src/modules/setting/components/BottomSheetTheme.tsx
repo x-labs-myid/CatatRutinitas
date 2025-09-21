@@ -2,30 +2,39 @@ import { dark, green, primary, red, yellow } from "@shared/utils/constant"
 import { View } from "react-native"
 import ActionSheet from "react-native-actions-sheet"
 import { List } from "react-native-paper"
+import { useAtom } from "jotai"
+import { themeAtom } from "@shared/atom/atomSetting"
+import useGlobal from "@shared/hooks"
 
 const BottomSheetTheme = ({ id }: { id: string }) => {
+    const [theme, setTheme] = useAtom(themeAtom)
+    const { translateGlobal } = useGlobal()
     return (
         <ActionSheet id={id} gestureEnabled>
-            <List.Section title="Tema">
+            <List.Section title={translateGlobal('Tema')}>
                 <List.Item
-                    title="Blue"
-                    left={props => <List.Icon {...props} color={dark} icon="palette" />}
+                    title={translateGlobal('Biru')}
+                    left={props => <List.Icon {...props} color={ theme === primary ? theme! : dark} icon="palette" />}
                     right={() => <View style={{ backgroundColor: primary, width: 20, height: 20, borderRadius: 100 }}></View>}
+                    onPress={() => setTheme(primary)}
                 />
                 <List.Item
-                    title="Red"
-                    left={props => <List.Icon {...props} color={dark} icon="palette" />}
+                    title={translateGlobal('Merah')}
+                    left={props => <List.Icon {...props} color={ theme === red ? theme! : dark} icon="palette" />}
                     right={() => <View style={{ backgroundColor: red, width: 20, height: 20, borderRadius: 100 }}></View>}
+                    onPress={() => setTheme(red)}
                 />
                 <List.Item
-                    title="Green"
-                    left={props => <List.Icon {...props} color={dark} icon="palette" />}
+                    title={translateGlobal('Hijau')}
+                    left={props => <List.Icon {...props} color={ theme === green ? theme! : dark} icon="palette" />}
                     right={() => <View style={{ backgroundColor: green, width: 20, height: 20, borderRadius: 100 }}></View>}
+                    onPress={() => setTheme(green)}
                 />
                 <List.Item
-                    title="Yellow"
-                    left={props => <List.Icon {...props} color={dark} icon="palette" />}
+                    title={translateGlobal('Kuning')}
+                    left={props => <List.Icon {...props} color={ theme === yellow ? theme! : dark} icon="palette" />}
                     right={() => <View style={{ backgroundColor: yellow, width: 20, height: 20, borderRadius: 100 }}></View>}
+                    onPress={() => setTheme(yellow)}
                 />
             </List.Section>
         </ActionSheet>

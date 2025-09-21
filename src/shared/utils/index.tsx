@@ -1,7 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import notifee from '@notifee/react-native';
-import { TimestampTrigger, TriggerType, RepeatFrequency } from '@notifee/react-native';
-import { notificationChannelId, notificationName } from './constant';
+import notifee, { TimestampTrigger, TriggerType, RepeatFrequency } from '@notifee/react-native';
+import { English, Indonesia, listWordNotification, Melayu, notificationChannelId, notificationName, traslateIndonesia } from './constant';
+import { mmkv } from '@services/stores/mmkv';
+import wordsID from '@services/data/id';
+import wordsEN from '@services/data/en';
+import wordsMY from '@services/data/my';
 
 export const setupNotification = async () => {
     await notifee.requestPermission();
@@ -11,10 +13,11 @@ export const setupNotification = async () => {
     });
 }
 
-export const scheduleNotification = async ({ id, title, body, dateStr }: { id: string, title: string, body: string, dateStr: string }) => {
+export const scheduleNotification = async ({ id, title, body, dateStr, reminder  }: { id: string, title: string, body: string, dateStr: string, reminder : string }) => {
+    const splitReminder = reminder.split(':')
     const date = new Date(dateStr);
-    date.setHours(5);
-    date.setMinutes(0);
+    date.setHours(Number(splitReminder[0]));
+    date.setMinutes(Number(splitReminder[1]));
     date.setSeconds(0);
     date.setMilliseconds(0);
 
@@ -59,38 +62,9 @@ export const cancelAllNotification = async () => {
     await notifee.cancelAllNotifications();
 }
 
-export const setAsyncStorage = async (key: string, value: unknown) => {
+export const clearMMKVStorage = () => {
     try {
-        await AsyncStorage.setItem(key, JSON.stringify(value))
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export const getAsyncStorage = async (key: string) => {
-    try {
-        const value = await AsyncStorage.getItem(key)
-        if (value !== null) {
-            return JSON.parse(value)
-        }
-        return null
-    } catch (e) {
-        console.log(e)
-        return null
-    }
-}
-
-export const removeAsyncStorage = async (key: string) => {
-    try {
-        await AsyncStorage.removeItem(key)
-    } catch (e) {
-        console.log(e)
-    }
-}
-
-export const clearAsyncStorage = async () => {
-    try {
-        await AsyncStorage.clear()
+        mmkv.clearAll()
     } catch (e) {
         console.log(e)
     }

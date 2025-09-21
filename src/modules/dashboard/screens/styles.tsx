@@ -1,4 +1,4 @@
-import { dimensionHeight, dimensionWidth, primary } from "@shared/utils/constant"
+import { dimensionHeight, dimensionWidth } from "@shared/utils/constant"
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
@@ -18,12 +18,6 @@ const styles = StyleSheet.create({
     textCenter: {
         textAlign: 'center'
     },
-    wrapIcon: {
-        padding: 3,
-        borderWidth: 2,
-        borderColor: primary,
-        borderRadius: '100%',
-    }
 })
 
 export default styles

@@ -1,6 +1,6 @@
 import { RoutineTable } from '@shared/types/db';
 import { tableRoutine } from '@shared/utils/constant';
-import database from '@services/db_local/routine';
+import { database } from '@services/db_local/index';
 import Routine from '@services/db_local/routine/model';
 
 const useTableRoutine = () => {
@@ -24,27 +24,28 @@ const useTableRoutine = () => {
 
     async function insert(routineData: RoutineTable) {
         try {
-          let newRoutine: Routine | null = null
-      
-          await database.write(async () => {
-            newRoutine = await database.get<Routine>(tableRoutine).create((routine) => {
-              routine.name = routineData.name
-              routine.description = routineData.description
-              routine.startDate = routineData.startDate
-              routine.endDate = routineData.endDate
-              routine.processDay = routineData.processDay
-              routine.completeDate = routineData.completeDate
-              routine.totalTargetDay = routineData.totalTargetDay
-              routine.isCompleted = routineData.isCompleted
+            let newRoutine: Routine | null = null
+
+            await database.write(async () => {
+                newRoutine = await database.get<Routine>(tableRoutine).create((routine) => {
+                    routine.name = routineData.name!
+                    routine.description = routineData.description!
+                    routine.startDate = routineData.startDate!
+                    routine.endDate = routineData.endDate!
+                    routine.processDay = routineData.processDay!
+                    routine.completeDate = routineData.completeDate!
+                    routine.totalTargetDay = routineData.totalTargetDay!
+                    routine.isCompleted = routineData.isCompleted!
+                    routine.reminder = routineData.reminder!
+                    routine.sync = routineData.sync!
+                })
             })
-          })
-          // newRoutine.id sudah ada
-          return newRoutine!.id
+            return newRoutine!.id
         } catch (error) {
-          console.log('error insert', error)
-          return null
+            console.log('error insert', error)
+            return null
         }
-      }      
+    }
 
     async function update(id: string, routine: RoutineTable) {
         try {
@@ -52,14 +53,16 @@ const useTableRoutine = () => {
                 const find = await database.get<Routine>(tableRoutine).find(id);
 
                 await find.update((record) => {
-                    record.name = routine.name;
-                    record.description = routine.description;
-                    record.startDate = routine.startDate;
-                    record.endDate = routine.endDate;
-                    record.processDay = routine.processDay;
-                    record.completeDate = routine.completeDate;
-                    record.totalTargetDay = routine.totalTargetDay;
-                    record.isCompleted = routine.isCompleted;
+                    record.name = routine.name!;
+                    record.description = routine.description!;
+                    record.startDate = routine.startDate!;
+                    record.endDate = routine.endDate!;
+                    record.processDay = routine.processDay!;
+                    record.completeDate = routine.completeDate!;
+                    record.totalTargetDay = routine.totalTargetDay!;
+                    record.isCompleted = routine.isCompleted!;
+                    record.reminder = routine.reminder!;
+                    record.sync = routine.sync!;
                 });
             })
             return true

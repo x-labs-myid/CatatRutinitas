@@ -13,4 +13,6 @@ export default class Routine extends Model {
   @field('complete_date') completeDate!: string;
   @field('total_target_day') totalTargetDay!: number;
   @field('is_completed') isCompleted!: boolean;
+  @field('reminder') reminder!: string;
+  @field('sync') sync!: boolean;
 }

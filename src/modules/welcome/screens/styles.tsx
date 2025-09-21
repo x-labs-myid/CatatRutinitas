@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { border_radius_button, dimensionHeight, dimensionWidth, font, fontStandard, fontTitle, primary, white } from "@shared/utils/constant"
+import { dimensionHeight, dimensionWidth, font, fontStandard, fontTitle, white } from "@shared/utils/constant"
 
 const styles = StyleSheet.create({
     container: {
@@ -25,12 +25,6 @@ const styles = StyleSheet.create({
         bottom: dimensionHeight * 0.015, 
         padding: 10,
         backgroundColor: white
-    },
-    button: {
-        width: '100%',
-        paddingVertical: 10,
-        borderRadius: border_radius_button,
-        backgroundColor: primary
     },
     inputText: {
         marginBottom: 10,

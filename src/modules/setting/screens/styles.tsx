@@ -1,4 +1,4 @@
-import { dimensionHeight, dimensionWidth, font, fontExtra, fontStandard, fontTitle, primary, white } from "@shared/utils/constant"
+import { dimensionHeight, dimensionWidth, font, fontExtra, fontStandard, fontTitle, white } from "@shared/utils/constant"
 import { StyleSheet } from "react-native"
 
 const styles = StyleSheet.create({
@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
         paddingVertical: dimensionHeight * 0.01,
     },
     cardName: {
-        backgroundColor: primary,
         marginVertical: dimensionHeight * 0.005,
     },
     cardSetting: {

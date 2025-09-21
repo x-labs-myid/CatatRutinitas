@@ -1,17 +1,20 @@
 import { ToastAndroid, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper'
 import styles from './styles';
-import { primary } from '@shared/utils/constant';
 import { useState } from 'react';
-import { userAtom } from '@shared/jotai/atomSetting';
+import { userAtom } from '@shared/atom/atomSetting';
 import { useAtom } from 'jotai';
+import { themeAtom } from '@shared/atom/atomSetting';
+import useGlobal from '@shared/hooks';
 
 const WelcomeScreen = () => {
     const [name, setName] = useState<string>('')
     const [user, setUser] = useAtom(userAtom)
+    const [theme] = useAtom(themeAtom)
+    const { translateGlobal } = useGlobal()
 
     function next() {
-        if(name == '') return ToastAndroid.show('Isi nama kamu dulu!', ToastAndroid.SHORT)
+        if(name == '') return ToastAndroid.show(`${translateGlobal('Isi nama kamu dulu')}`, ToastAndroid.SHORT)
         setUser(name)
     }
 
@@ -19,14 +22,14 @@ const WelcomeScreen = () => {
         <>
             <View style={styles.container}>
                 <View>
-                    <Text variant='headlineMedium' style={styles.textCenter}>Selamat Datang di</Text>
-                    <Text variant='headlineLarge' style={{ ...styles.textCenter, color: primary }}>CatatRutinitas</Text>
+                    <Text variant='headlineMedium' style={styles.textCenter}>{translateGlobal('Selamat Datang di')}</Text>
+                    <Text variant='headlineLarge' style={{ ...styles.textCenter, color: theme! }}>CatatRutinitas</Text>
                 </View>
                 <View style={{ marginTop: 20 }}>
                     <TextInput
-                        placeholder="Masukin nama kamu"
+                        placeholder={translateGlobal('Masukin nama kamu')}
                         mode='outlined'
-                        activeOutlineColor={primary}
+                        activeOutlineColor={theme!}
                         left={<TextInput.Icon icon="account" />}
                         value={name}
                         onChangeText={value => setName(value)}
@@ -37,10 +40,10 @@ const WelcomeScreen = () => {
             <View style={styles.wrapBottom}>
                 <Button
                     mode="contained"
-                    buttonColor={primary}
+                    buttonColor={theme!}
                     onPress={next}
                 >
-                    Lanjut
+                    {translateGlobal('Lanjut')}
                 </Button>
             </View>
         </>

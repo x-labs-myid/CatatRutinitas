@@ -1,5 +1,7 @@
-import { primary } from '@shared/utils/constant'
+import { themeAtom } from '@shared/atom/atomSetting'
+import useGlobal from '@shared/hooks'
 import { countDiffDay } from '@shared/utils/index'
+import { useAtom } from 'jotai'
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Alert, ToastAndroid } from 'react-native'
 import { Calendar } from 'react-native-calendars'
@@ -8,6 +10,8 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
     const [startDate, setStartDate] = useState<string | null>(null)
     const [endDate, setEndDate] = useState<string | null>(null)
     const [totalTargetDay, setTotalTargetDay] = useState<number | 0>(0)
+    const [theme] = useAtom(themeAtom)
+    const { translateGlobal } = useGlobal()
 
     const isBeforeToday = (dateStr: string) => {
         const today = new Date()
@@ -21,7 +25,7 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
     const onDayPress = (day: any) => {
         const selectedDate = day.dateString
         if (!startDate || (startDate && endDate)) {
-            if(isBeforeToday(selectedDate)) return ToastAndroid.show('Tanggal mulai tidak boleh kurang dari hari ini', ToastAndroid.SHORT)
+            if(isBeforeToday(selectedDate)) return ToastAndroid.show(`${translateGlobal('Tanggal mulai ga boleh kurang dari hari ini')}`, ToastAndroid.SHORT)
             setStartDate(selectedDate)
             setEndDate(null)
         } else if (startDate && !endDate) {
@@ -43,7 +47,7 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
         let markedDates: Record<string, any> = {
             [startDate]: {
                 startingDay: true,
-                color: primary,
+                color: theme,
                 textColor: 'white',
             },
         }
@@ -65,18 +69,18 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
             if (dateStr === startDate) {
                 markedDates[dateStr] = {
                     startingDay: true,
-                    color: primary,
+                    color: theme,
                     textColor: 'white',
                 }
             } else if (dateStr === endDate) {
                 markedDates[dateStr] = {
                     endingDay: true,
-                    color: primary,
+                    color: theme,
                     textColor: 'white',
                 }
             } else {
                 markedDates[dateStr] = {
-                    color: primary,
+                    color: theme,
                     textColor: 'white',
                 }
             }

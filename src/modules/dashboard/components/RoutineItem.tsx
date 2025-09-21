@@ -1,37 +1,50 @@
 import { Card, Text, ProgressBar, Button } from "react-native-paper"
 import { StyleSheet, View } from "react-native"
-import { dimensionHeight, dimensionWidth, primary, white } from "@shared/utils/constant"
+import { dimensionHeight, dimensionWidth, white } from "@shared/utils/constant"
+import { useAtom } from "jotai"
+import useGlobal from "@shared/hooks"
+import { descRoutineAtom, themeAtom } from "@shared/atom/atomSetting"
 
 const RoutineItem = ({ item, onPress }: { item: any, onPress: (detail: unknown, type: string) => void }) => {
+    const [theme] = useAtom(themeAtom)
+    const [descRoutine] = useAtom(descRoutineAtom)
+    const { translateGlobal } = useGlobal()
     return (
         <>
             <Card style={styles.card}>
                 <Card.Title title={item.name} />
                 <Card.Content>
-                    <ProgressBar progress={item.processDay / item.totalTargetDay} color={primary} />
+                    {
+                        descRoutine && item.description && (
+                            <View style={{ marginBottom: dimensionHeight * 0.015 }}>
+                                <Text>{item.description}</Text>
+                            </View>
+                        )
+                    }
+                    <ProgressBar progress={item.processDay / item.totalTargetDay} color={theme!} />
                     <View style={styles.wrap}>
-                        <Text>{item.processDay}/{item.totalTargetDay} Hari</Text>
-                        <Text>Selesai: {item.endDate}</Text>
+                        <Text>{item.processDay}/{item.totalTargetDay} {translateGlobal('Hari')}</Text>
+                        <Text>{translateGlobal('Selesai')} {item.isCompleted ? '' : `: ${item.endDate}`}</Text>
                     </View>
                     <View style={styles.wrap}>
                         <Button
                             mode="contained"
-                            buttonColor={primary}
+                            buttonColor={theme!}
                             onPress={() => onPress(item, 'complete')}
-                        >Selesai</Button>
+                        >{translateGlobal('Selesai')}</Button>
                         <View style={styles.wrapButton}>
                             <Button
                                 mode="outlined"
-                                theme={{ colors: { outline: primary } }}
-                                textColor={primary}
+                                theme={{ colors: { outline: theme! } }}
+                                textColor={theme!}
                                 onPress={() => onPress(item, 'modify')}
-                            >Ubah</Button>
+                            >{translateGlobal('Ubah')}</Button>
                             <Button
                                 mode="outlined"
-                                theme={{ colors: { outline: primary } }}
-                                textColor={primary}
+                                theme={{ colors: { outline: theme! } }}
+                                textColor={theme!}
                                 onPress={() => onPress(item, 'delete')}
-                            >Hapus</Button>
+                            >{translateGlobal('Hapus')}</Button>
                         </View>
                     </View>
                 </Card.Content>

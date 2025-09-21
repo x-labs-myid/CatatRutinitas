@@ -1,23 +1,20 @@
-import { appSchema, tableSchema } from '@nozbe/watermelondb';
+import { tableSchema } from '@nozbe/watermelondb';
 import { tableRoutine } from '@shared/utils/constant';
 
-const routineSchema = appSchema({
-  version: 1,
-  tables: [
-    tableSchema({
-      name: tableRoutine,
-      columns: [
-        { name: 'name', type: 'string' },
-        { name: 'description', type: 'string' },
-        { name: 'start_date', type: 'string' },
-        { name: 'end_date', type: 'string' },
-        { name: 'process_day', type: 'number' },
-        { name: 'complete_date', type: 'string' },
-        { name: 'total_target_day', type: 'number' },
-        { name: 'is_completed', type: 'boolean' },
-      ],
-    }),
+const routineSchema = tableSchema({
+  name: tableRoutine,
+  columns: [
+    { name: 'name', type: 'string' },
+    { name: 'description', type: 'string' },
+    { name: 'start_date', type: 'string' },
+    { name: 'end_date', type: 'string' },
+    { name: 'process_day', type: 'number' },
+    { name: 'complete_date', type: 'string' },
+    { name: 'total_target_day', type: 'number' },
+    { name: 'is_completed', type: 'boolean' },
+    { name: 'reminder', type: 'string' },
+    { name: 'sync', type: 'boolean' },
   ],
-});
+})
 
 export default routineSchema

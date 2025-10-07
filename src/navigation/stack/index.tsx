@@ -1,6 +1,4 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useAtom } from 'jotai';
-import { themeAtom, userAtom } from '@shared/atom/atomSetting';
 import { RootStackParamList } from '@shared/types/navigation';
 import { white } from '@shared/utils/constant';
 import AddNewScreen from '@modules/add-new/screens';
@@ -11,8 +9,6 @@ import HeaderRightDashboard from '@modules/dashboard/components/HeaderRight';
 import DetailScreen from '@modules/detail/screens';
 import HeaderRightAddNew from '@modules/add-new/components/HeaderRight';
 import useGlobal from '@shared/hooks';
-import { useEffect, useState } from 'react';
-import SplashScreen from '@shared/components/SplashScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -64,23 +60,10 @@ const UnauthenticatedStack = ({ theme }: { theme: string }) => (
     </Stack.Navigator>
 );
 
-const StackNavigation = () => {
-    const [user] = useAtom(userAtom);
-    const [theme] = useAtom(themeAtom);
-    const [splash, setSplash] = useState<boolean>(true)
-
-    useEffect(() => {
-        setTimeout(() => {
-            setSplash(false)
-        }, 700);
-    }, [])
-
-    if (splash) {
-        return <SplashScreen />
-    } else {
-        if (![null, undefined, ''].includes(user)) return <AuthenticatedStack user={user} theme={theme!} />
-        else return <UnauthenticatedStack theme={theme!} />
-    }
+const StackNavigation = ({user, theme}: {user: string | null, theme: string}) => {
+    
+    if (user != null) return <AuthenticatedStack user={user} theme={theme!} />
+    else return <UnauthenticatedStack theme={theme!} />
 };
 
 export default StackNavigation;

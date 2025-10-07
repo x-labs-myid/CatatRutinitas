@@ -36,7 +36,7 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
                 const start = new Date(startDate)
                 const end = new Date(selectedDate)
                 const diffDay = countDiffDay(start, end)
-                setTotalTargetDay(diffDay)
+                setTotalTargetDay(diffDay+1)
             }
         }
     }

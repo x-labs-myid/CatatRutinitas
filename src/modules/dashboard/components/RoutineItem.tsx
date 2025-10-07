@@ -27,11 +27,14 @@ const RoutineItem = ({ item, onPress }: { item: any, onPress: (detail: unknown, 
                         <Text>{translateGlobal('Selesai')} {item.isCompleted ? '' : `: ${item.endDate}`}</Text>
                     </View>
                     <View style={styles.wrap}>
-                        <Button
-                            mode="contained"
-                            buttonColor={theme!}
-                            onPress={() => onPress(item, 'complete')}
-                        >{translateGlobal('Selesai')}</Button>
+                        {!item.isCompleted && (
+                            <Button
+                                mode="contained"
+                                buttonColor={theme!}
+                                textColor={white}
+                                onPress={() => onPress(item, 'complete')}
+                            >{translateGlobal('Selesai')}</Button>
+                        )}
                         <View style={styles.wrapButton}>
                             <Button
                                 mode="outlined"

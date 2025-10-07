@@ -52,7 +52,11 @@ const wordsEN: Record<string, string> = {
     'Mau Diingetin Jam Berapa': 'Reminded at What Time',
     'Tanggal mulai ga boleh kurang dari hari ini': `The start date can't be earlier than today`,
     'Isi jam pengingatnya': 'Fill in the reminder time',
-    'Tidur Dulu': 'Sleep First'
+    'Tidur Dulu': 'Sleep First',
+    'Belum ada info terbaru': 'No new information',
+    'Semua': 'All',
+    'Dikerjain': 'In Progress',
+    'Belum ada rutinitas yang kamu selesain': 'No routine available'
 }
 
 export default wordsEN

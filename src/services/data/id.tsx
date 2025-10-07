@@ -52,7 +52,11 @@ const wordsID: Record<string, string> = {
     'Mau Diingetin Jam Berapa': 'Mau Diingetin Jam Berapa',
     'Tanggal mulai ga boleh kurang dari hari ini': 'Tanggal mulai ga boleh kurang dari hari ini',
     'Isi jam pengingatnya': 'Isi jam pengingatnya',
-    'Tidur Dulu': 'Tidur Dulu'
+    'Tidur Dulu': 'Tidur Dulu',
+    'Belum ada info terbaru': 'Belum ada info terbaru',
+    'Semua': 'Semua',
+    'Dikerjain': 'Dikerjain',
+    'Belum ada rutinitas yang kamu selesain': 'Belum ada rutinitas yang kamu selesain'
 }
 
 export default wordsID

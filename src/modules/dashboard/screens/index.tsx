@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { RoutineTable } from "@shared/types/db"
 import useTableRoutine from "@services/db_local/routine/use"
 import Empty from "@modules/dashboard/components/Empty"
-import { Alert, FlatList, ToastAndroid } from "react-native"
+import { Alert, FlatList, Text, ToastAndroid, View } from "react-native"
 import RoutineItem from "@modules/dashboard/components/RoutineItem"
 import { cancelNotification, dateToDay, scheduleNotification } from "@shared/utils"
 import { useIsFocused, useNavigation } from "@react-navigation/native"
@@ -30,13 +30,15 @@ const DashboardScreen = () => {
                 title: `${translateGlobal('Tidur Dulu')}`,
                 body: getRandomSleepNotification() ?? '',
                 dateStr: dateToDay(new Date()),
-                reminder: `22:00`
+                reminder: `22:0`
             })
             loopNotif(data)
         } catch (error) {
             console.log('error get routine', error)
         } finally {
-            setLoading(false)
+            setTimeout(() => {
+                setLoading(false)
+            }, 500);
         }
     }
 
@@ -59,9 +61,9 @@ const DashboardScreen = () => {
             const start = new Date(detail?.startDate)
             const end = new Date(detail?.endDate)
             const complete = new Date(detail?.completeDate)
-            if (!detail.completeDate && start.getDate() < completeDate.getDate()) return ToastAndroid.show(`${detail?.name} ${translateGlobal('dimulai')} ${detail?.startDate}`, ToastAndroid.SHORT)
             if (end.getDate() === completeDate.getDate()) return ToastAndroid.show(`${detail?.name} ${translateGlobal('Rutinitas sudah selesai')}!`, ToastAndroid.SHORT)
             if (complete.getDate() === completeDate.getDate()) return ToastAndroid.show(`${translateGlobal('Rutinitas ini sudah dilakuin')}`, ToastAndroid.SHORT)
+            if (!detail.completeDate && completeDate.getDate() < start.getDate()) return ToastAndroid.show(`${detail?.name} ${translateGlobal('dimulai')} ${detail?.startDate}`, ToastAndroid.SHORT)
             update(detail?.id, {
                 name: detail?.name,
                 description: detail?.description,
@@ -117,6 +119,7 @@ const DashboardScreen = () => {
             setListRoutine([])
         }
     }, [isFocused])
+
     if (loading) return <Loading />
     if (listRoutine.length === 0) return <Empty />
     return (
@@ -125,6 +128,7 @@ const DashboardScreen = () => {
                 data={listRoutine}
                 keyExtractor={(_, index: number) => index.toString()}
                 style={styles.flatlist}
+                ListEmptyComponent={<View style={styles.emptyList}><Text>{translateGlobal('Belum ada rutinitas yang kamu selesain')}</Text></View>}
                 renderItem={({ item }) =>
                     <RoutineItem
                         item={item}

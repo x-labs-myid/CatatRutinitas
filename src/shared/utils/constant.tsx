@@ -97,6 +97,7 @@ export const traslateIndonesia: { [key: string]: { [key: string]: string } } = {
 
 // extras
 export const durationSnackBar = 1500
+
 export const listWordNotification: string[] = [
     "Selamat pagi 🌞! Yuk mulai hari dengan rutinitas positif kamu.",
     "Gaspol lagi hari ini 🚀, jangan skip biar habit makin nempel!",

@@ -52,7 +52,11 @@ const wordsMY: Record<string, string> = {
     'Mau Diingetin Jam Berapa': 'Nak Diingatkan Jam Berapa',
     'Tanggal mulai ga boleh kurang dari hari ini': 'Tarikh mula tak boleh kurang dari hari ini',
     'Isi jam pengingatnya': 'Isi jam pengingatnya',
-    'Tidur Dulu': 'Tidur Dulu'
+    'Tidur Dulu': 'Tidur Dulu',
+    'Belum ada info terbaru': 'Belum ada maklumat terkini',
+    'Semua': 'Semua',
+    'Dikerjain': 'Dikerjakan',
+    'Belum ada rutinitas yang kamu selesain': 'Belum ada rutinitas yang kamu selesaikan'
 }
 
 

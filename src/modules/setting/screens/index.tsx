@@ -10,6 +10,7 @@ import BottomSheetLanguage from "../components/BottomSheetLanguage"
 import { SheetManager } from "react-native-actions-sheet"
 import BottomSheetTheme from "../components/BottomSheetTheme"
 import useGlobal from "@shared/hooks"
+import BottomSheetInfo from "../components/BottomSheetInfo"
 
 const SettingScreen = () => {
     const [name, setName] = useState<string>('')
@@ -99,6 +100,7 @@ const SettingScreen = () => {
             </ScrollKeyboard>
             <BottomSheetLanguage id="language" />
             <BottomSheetTheme id="theme" />
+            <BottomSheetInfo id="info" />
         </>
     )
 }

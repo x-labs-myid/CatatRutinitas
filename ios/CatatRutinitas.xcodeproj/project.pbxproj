@@ -24,6 +24,8 @@
 		1C7E969933B240F4B162FF04 /* HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf in Resources */ = {isa = PBXBuildFile; fileRef = 482E9753D7494C6FA8662254 /* HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf */; };
 		B3CF035984D34BBE946BEB2A /* HvDTrial_Brandon_Grotesque_thin_italic-BF64a625c918a96.otf in Resources */ = {isa = PBXBuildFile; fileRef = 99F082AA0B89490ABCEB5948 /* HvDTrial_Brandon_Grotesque_thin_italic-BF64a625c918a96.otf */; };
 		553C7E70E09945A7A19A4CA8 /* Befonts-License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 594EBA4A53A34E8E97720A18 /* Befonts-License.txt */; };
+		D7CE7ADEDB9A4445B1E85E95 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED7AD24FACC54AE5B7DE79DA /* BootSplash.storyboard */; };
+		3A52EE651AD84F3EBB550F69 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C9911B1CD6E47C9A91E64B5 /* Colors.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		482E9753D7494C6FA8662254 /* HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf */ = {isa = PBXFileReference; name = "HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf"; path = "../src/assets/fonts/HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		99F082AA0B89490ABCEB5948 /* HvDTrial_Brandon_Grotesque_thin_italic-BF64a625c918a96.otf */ = {isa = PBXFileReference; name = "HvDTrial_Brandon_Grotesque_thin_italic-BF64a625c918a96.otf"; path = "../src/assets/fonts/HvDTrial_Brandon_Grotesque_thin_italic-BF64a625c918a96.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		594EBA4A53A34E8E97720A18 /* Befonts-License.txt */ = {isa = PBXFileReference; name = "Befonts-License.txt"; path = "../src/assets/fonts/Befonts-License.txt"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ED7AD24FACC54AE5B7DE79DA /* BootSplash.storyboard */ = {isa = PBXFileReference; name = "BootSplash.storyboard"; path = "CatatRutinitas/BootSplash.storyboard"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6C9911B1CD6E47C9A91E64B5 /* Colors.xcassets */ = {isa = PBXFileReference; name = "Colors.xcassets"; path = "CatatRutinitas/Colors.xcassets"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = folder.assetcatalog; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				ED7AD24FACC54AE5B7DE79DA /* BootSplash.storyboard */,
+				6C9911B1CD6E47C9A91E64B5 /* Colors.xcassets */,
 			);
 			name = CatatRutinitas;
 			sourceTree = "<group>";
@@ -220,6 +226,8 @@
 				1C7E969933B240F4B162FF04 /* HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf in Resources */,
 				B3CF035984D34BBE946BEB2A /* HvDTrial_Brandon_Grotesque_thin_italic-BF64a625c918a96.otf in Resources */,
 				553C7E70E09945A7A19A4CA8 /* Befonts-License.txt in Resources */,
+				D7CE7ADEDB9A4445B1E85E95 /* BootSplash.storyboard in Resources */,
+				3A52EE651AD84F3EBB550F69 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

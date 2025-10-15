@@ -4,8 +4,8 @@ const wordsID: Record<string, string> = {
     'Masukin nama kamu': 'Masukin nama kamu',
     'Lanjut': 'Lanjut',
     'dimulai': 'dimulai',
-    'Rutinitas sudah selesai': 'Rutinitas sudah selesai',
-    'Rutinitas ini sudah dilakuin': 'Rutinitas ini sudah dilakuin',
+    'Rutinitas udah selesai': 'Rutinitas udah selesai',
+    'Rutinitas ini udah dilakuin': 'Rutinitas ini udah dilakuin',
     'Serius': 'Serius',
     'Kamu yakin pengen hapus rutinitas ini': 'Kamu yakin pengen hapus rutinitas ini',
     'Ga jadi': 'Ga jadi',
@@ -56,7 +56,13 @@ const wordsID: Record<string, string> = {
     'Belum ada info terbaru': 'Belum ada info terbaru',
     'Semua': 'Semua',
     'Dikerjain': 'Dikerjain',
-    'Belum ada rutinitas yang kamu selesain': 'Belum ada rutinitas yang kamu selesain'
+    'Belum ada rutinitas yang kamu selesain': 'Belum ada rutinitas yang kamu selesain',
+    'Yang belum kamu selesain': 'Yang belum kamu selesain',
+    'Yang udah kamu selesain': 'Yang udah kamu selesain',
+    'Rutinitas': 'Rutinitas',
+    'Kamu punya': 'Kamu punya',
+    'Sukses': 'Sukses',
+    'Gagal': 'Gagal'
 }
 
 export default wordsID

@@ -4,7 +4,7 @@ import { ScrollView, View, Text, Linking } from "react-native"
 import { Button, Card, List, TextInput, Switch } from "react-native-paper"
 import styles from "./styles"
 import { useAtom } from "jotai"
-import { descRoutineAtom, feelAtom, languageAtom, themeAtom, userAtom } from "@shared/atom/atomSetting"
+import { descRoutineAtom, languageAtom, themeAtom, userAtom } from "@shared/atom/atomSetting"
 import ScrollKeyboard from "@shared/components/ScrollKeyboard"
 import BottomSheetLanguage from "../components/BottomSheetLanguage"
 import { SheetManager } from "react-native-actions-sheet"
@@ -15,9 +15,7 @@ import BottomSheetInfo from "../components/BottomSheetInfo"
 const SettingScreen = () => {
     const [name, setName] = useState<string>('')
     const [user, setUser] = useAtom(userAtom)
-
     const [language, setLanguage] = useAtom(languageAtom)
-    const [feel, setFeel] = useAtom(feelAtom)
     const { translateGlobal } = useGlobal()
     const [descRoutine, setDescRoutine] = useAtom(descRoutineAtom)
     const [theme] = useAtom(themeAtom)
@@ -87,6 +85,7 @@ const SettingScreen = () => {
                             <List.Item
                                 title={translateGlobal('Info')}
                                 titleStyle={styles.textList}
+                                onPress={() => SheetManager.show('info', { context: 'global' })}
                                 left={() => <List.Icon color={dark} icon="information-outline" />}
                             />
                             <List.Item

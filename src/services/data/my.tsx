@@ -1,13 +1,13 @@
 const wordsMY: Record<string, string> = {
-    'Isi nama kamu dulu': 'Isi nama anda dahulu',
+    'Isi nama kamu dulu': 'Isi nama kamu dahulu',
     'Selamat Datang di': 'Selamat Datang di',
-    'Masukin nama kamu': 'Masukkan nama anda',
+    'Masukin nama kamu': 'Masukkan nama kamu',
     'Lanjut': 'Sambung',
     'dimulai': 'dimulakan',
-    'Rutinitas sudah selesai': 'Rutinitas telah selesai',
-    'Rutinitas ini sudah dilakuin': 'Rutinitas ini sudah dilakukan',
+    'Rutinitas udah selesai': 'Rutinitas telah selesai',
+    'Rutinitas ini udah dilakuin': 'Rutinitas ini sudah dilakukan',
     'Serius': 'Serius',
-    'Kamu yakin pengen hapus rutinitas ini': 'Adakah anda pasti mahu padam rutinitas ini?',
+    'Kamu yakin pengen hapus rutinitas ini': 'Adakah kamu pasti mahu padam rutinitas ini',
     'Ga jadi': 'Tak jadi',
     'Ya, Hapus': 'Ya, Padam',
     'Hari': 'Hari',
@@ -28,7 +28,7 @@ const wordsMY: Record<string, string> = {
     'Data gagal disimpan': 'Data gagal disimpan',
     'Simpan': 'Simpan',
     'Data berhasil diubah': 'Data berjaya diubah',
-    'Ubah nama kamu di sini': 'Ubah nama anda di sini',
+    'Ubah nama kamu di sini': 'Ubah nama kamu di sini',
     'Umum': 'Umum',
     'Tema': 'Tema',
     'Bahasa': 'Bahasa',
@@ -36,7 +36,7 @@ const wordsMY: Record<string, string> = {
     'Website': 'Laman Web',
     'Info': 'Maklumat',
     'Kasih Nilai': 'Beri Penilaian',
-    'Pengen diingetin rutinitas apa sama aku': 'Mahu diingatkan tentang rutinitas apa oleh saya?',
+    'Pengen diingetin rutinitas apa sama aku': 'Mahu diingatkan tentang rutinitas apa oleh saya',
     'Coba': 'Cuba',
     'Tutup': 'Tutup',
     'Biru': 'Biru',
@@ -56,7 +56,13 @@ const wordsMY: Record<string, string> = {
     'Belum ada info terbaru': 'Belum ada maklumat terkini',
     'Semua': 'Semua',
     'Dikerjain': 'Dikerjakan',
-    'Belum ada rutinitas yang kamu selesain': 'Belum ada rutinitas yang kamu selesaikan'
+    'Belum ada rutinitas yang kamu selesain': 'Belum ada rutinitas yang kamu selesaikan',
+    'Yang belum kamu selesain': 'Yang belum kamu siapkan',
+    'Yang udah kamu selesain': 'Yang sudah kamu siapkan',
+    'Rutinitas': 'Rutin',
+    'Kamu punya': 'Kamu ada',
+    'Sukses': 'Sukses',
+    'Gagal': 'Gagal'
 }
 
 

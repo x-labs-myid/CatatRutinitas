@@ -1,4 +1,4 @@
-package com.catatrutinitas
+package my.id.diamsyah.apps.catatrutinitas
 
 import android.app.Application
 import com.facebook.react.PackageList

@@ -70,7 +70,7 @@ export const clearMMKVStorage = () => {
     }
 }
 
-export const dateToDay = (date: Date) => {
+export const dateInternationalFormat = (date: Date) => {
     const day = date.getDate()
     const month = date.getMonth() + 1
     const year = date.getFullYear()
@@ -81,6 +81,10 @@ export const countDiffDay = (startDate: Date, endDate: Date) => {
     const diffTime = Math.abs(endDate.getTime() - startDate.getTime())
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
     return diffDays
+}
+
+export const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 

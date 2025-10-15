@@ -9,6 +9,9 @@ import HeaderRightDashboard from '@modules/dashboard/components/HeaderRight';
 import DetailScreen from '@modules/detail/screens';
 import HeaderRightAddNew from '@modules/add-new/components/HeaderRight';
 import useGlobal from '@shared/hooks';
+import { useAtom } from 'jotai'
+import { userAtom, themeAtom } from '@shared/atom/atomSetting'
+import { useEffect, useState } from 'react'
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -60,10 +63,19 @@ const UnauthenticatedStack = ({ theme }: { theme: string }) => (
     </Stack.Navigator>
 );
 
-const StackNavigation = ({user, theme}: {user: string | null, theme: string}) => {
+const StackNavigation = () => {
+    const [user] = useAtom(userAtom)
+    const [theme] = useAtom(themeAtom)
+
+    const [isReady, setIsReady] = useState(false)
+    useEffect(() => {
+        setTimeout(() => {
+            setIsReady(true)
+        }, 200)
+    }, [])
     
-    if (user != null) return <AuthenticatedStack user={user} theme={theme!} />
-    else return <UnauthenticatedStack theme={theme!} />
+    if (isReady && ![null, undefined, ''].includes(user)) return <AuthenticatedStack user={user} theme={theme!} />
+    if(isReady && [null, undefined, ''].includes(user)) return <UnauthenticatedStack theme={theme!} />
 };
 
 export default StackNavigation;

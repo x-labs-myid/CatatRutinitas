@@ -1,4 +1,4 @@
-package com.catatrutinitas
+package my.id.diamsyah.apps.catatrutinitas
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

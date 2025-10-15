@@ -11,6 +11,12 @@ const styles = StyleSheet.create({
         marginVertical: 5,
         fontFamily: font.BrandonRegular,
         backgroundColor: white
+    },
+    reminder: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 10,
     }
 })
 

@@ -22,6 +22,9 @@ const HeaderRightAddNew = () => {
 
     const onSubmit = async () => {
         if (!name || !description || !startDate || !endDate || !reminder) return ToastAndroid.show(`${translateGlobal('Semua field harus diisi')}`, ToastAndroid.SHORT)
+        const today = new Date()
+        const start = new Date(startDate)
+        const end = new Date(endDate)
         const result = await useTableRoutine().insert({
             name: name,
             description: description,
@@ -41,13 +44,15 @@ const HeaderRightAddNew = () => {
                 note: '',
                 sync: false
             })
-            scheduleNotification({
-                id: result,
-                title: name,
-                body: getRandomNotification() ?? '',
-                dateStr: startDate,
-                reminder: reminder
-            })
+            if (start.getDate() >= today.getDate()) {
+                scheduleNotification({
+                    id: result,
+                    title: name,
+                    body: getRandomNotification() ?? '',
+                    dateStr: startDate,
+                    reminder: reminder
+                })
+            }
             setName(null)
             setDescription(null)
             setStartDate(null)
@@ -60,7 +65,7 @@ const HeaderRightAddNew = () => {
             ToastAndroid.show(`${translateGlobal('Data gagal disimpan')}`, ToastAndroid.SHORT)
         }
     }
-    
+
     return (
         <>
             <TouchableOpacity style={styles.btn} onPress={onSubmit}>

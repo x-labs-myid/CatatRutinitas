@@ -4,10 +4,10 @@ const wordsEN: Record<string, string> = {
     'Masukin nama kamu': 'Enter your name',
     'Lanjut': 'Continue',
     'dimulai': 'started',
-    'Rutinitas sudah selesai': 'Routine is completed',
-    'Rutinitas ini sudah dilakuin': 'This routine has been done',
+    'Rutinitas udah selesai': 'Routine is completed',
+    'Rutinitas ini udah dilakuin': 'This routine has been done',
     'Serius': 'Serious',
-    'Kamu yakin pengen hapus rutinitas ini': 'Are you sure you want to delete this routine?',
+    'Kamu yakin pengen hapus rutinitas ini': 'Are you sure you want to delete this routine',
     'Ga jadi': 'Cancel',
     'Ya, Hapus': 'Delete',
     'Hari': 'Day',
@@ -36,7 +36,7 @@ const wordsEN: Record<string, string> = {
     'Website': 'Website',
     'Info': 'Information',
     'Kasih Nilai': 'Give Rating',
-    'Pengen diingetin rutinitas apa sama aku': 'Want to be reminded about which routine by me?',
+    'Pengen diingetin rutinitas apa sama aku': 'Want to be reminded about which routine by me',
     'Coba': 'Try',
     'Tutup': 'Close',
     'Biru': 'Blue',
@@ -56,7 +56,13 @@ const wordsEN: Record<string, string> = {
     'Belum ada info terbaru': 'No new information',
     'Semua': 'All',
     'Dikerjain': 'In Progress',
-    'Belum ada rutinitas yang kamu selesain': 'No routine available'
+    'Belum ada rutinitas yang kamu selesain': 'No routine available',
+    'Yang belum kamu selesain': 'What you haven’t completed',
+    'Yang udah kamu selesain': 'What you’ve completed',
+    'Rutinitas': 'Routine',
+    'Kamu punya': 'You have',
+    'Sukses': 'Success',
+    'Gagal': 'Failed'
 }
 
 export default wordsEN

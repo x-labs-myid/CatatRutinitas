@@ -4,65 +4,81 @@ import useTableRoutine from "@services/db_local/routine/use"
 import Empty from "@modules/dashboard/components/Empty"
 import { Alert, FlatList, Text, ToastAndroid, View } from "react-native"
 import RoutineItem from "@modules/dashboard/components/RoutineItem"
-import { cancelNotification, dateToDay, scheduleNotification } from "@shared/utils"
+import { cancelNotification, dateInternationalFormat, scheduleNotification } from "@shared/utils"
 import { useIsFocused, useNavigation } from "@react-navigation/native"
 import { DashboardScreenNavigationProp } from "@shared/types/navigation"
 import styles from "./styles"
 import useGlobal from "@shared/hooks"
 import Loading from "@shared/components/Loading"
+import Info from "../components/Info"
+import Filter from "../components/Filter"
+import Routine from "@services/db_local/routine/model"
 
 const DashboardScreen = () => {
     const [loading, setLoading] = useState<boolean>(false)
     const { translateGlobal, getRandomNotification, getRandomSleepNotification } = useGlobal()
     const navigation = useNavigation<DashboardScreenNavigationProp>()
     const { select, update, del } = useTableRoutine()
+    const [listRoutineMain, setListRoutineMain] = useState<any[]>([])
     const [listRoutine, setListRoutine] = useState<any[]>([])
+    const [isCompleted, setIsCompleted] = useState<boolean>(false)
 
     const isFocused = useIsFocused()
 
+    // get data routine
     const getRoutine = async () => {
         setLoading(true)
         try {
             const data = await select()
-            setListRoutine(data)
-            scheduleNotification({
-                id: `reminder-sleep`,
-                title: `${translateGlobal('Tidur Dulu')}`,
-                body: getRandomSleepNotification() ?? '',
-                dateStr: dateToDay(new Date()),
-                reminder: `22:0`
-            })
-            loopNotif(data)
+            const resultAfterAutoComplete = await autoCompleteRoutine(data)
+            setIsCompleted(false)
+            setListRoutineMain(data)
+            setListRoutine(resultAfterAutoComplete.filter((item: any) => !item.isCompleted))
         } catch (error) {
             console.log('error get routine', error)
         } finally {
             setTimeout(() => {
                 setLoading(false)
-            }, 500);
+            }, 250);
         }
     }
 
-    const loopNotif = (data: RoutineTable[]) => {
-        if (data.length === 0) return
-        for (let i = 0; i < data.length; i++) {
-            scheduleNotification({
-                id: data[i].id!,
-                title: data[i].name!,
-                body: getRandomNotification() ?? '',
-                dateStr: data[i].startDate!,
-                reminder: data[i].reminder!
-            })
+    // auto complete routine if today > endDate
+    const autoCompleteRoutine = async (data: Routine[]) => {
+        let result: Routine[] = []
+        const today = new Date()
+        for(let i = 0; i < data.length; i++) {
+            const end = new Date(data[i].endDate)
+            if(!data[i].isCompleted && today.getDate() > end.getDate() ) {
+                update(data[i].id, {
+                    name: data[i].name,
+                    description: data[i].description,
+                    startDate: data[i].startDate,
+                    endDate: data[i].endDate,
+                    processDay: data[i].processDay,
+                    totalTargetDay: data[i].totalTargetDay,
+                    completeDate: dateInternationalFormat(new Date()),
+                    isCompleted: true,
+                    reminder: data[i].reminder,
+                    sync: false
+                })
+            } else {
+                result.push(data[i])
+            }
         }
+        console.log('result after auto complete', result)
+        return result
     }
 
+    // update routine if user complete routine
     const updateRoutine = async (detail: any) => {
         try {
             const completeDate = new Date()
             const start = new Date(detail?.startDate)
             const end = new Date(detail?.endDate)
             const complete = new Date(detail?.completeDate)
-            if (end.getDate() === completeDate.getDate()) return ToastAndroid.show(`${detail?.name} ${translateGlobal('Rutinitas sudah selesai')}!`, ToastAndroid.SHORT)
-            if (complete.getDate() === completeDate.getDate()) return ToastAndroid.show(`${translateGlobal('Rutinitas ini sudah dilakuin')}`, ToastAndroid.SHORT)
+            if (completeDate.getDate() > end.getDate()) return ToastAndroid.show(`${detail?.name} ${translateGlobal('Rutinitas udah selesai')}!`, ToastAndroid.SHORT)
+            if (complete.getDate() === completeDate.getDate()) return ToastAndroid.show(`${translateGlobal('Rutinitas ini udah dilakuin')}`, ToastAndroid.SHORT)
             if (!detail.completeDate && completeDate.getDate() < start.getDate()) return ToastAndroid.show(`${detail?.name} ${translateGlobal('dimulai')} ${detail?.startDate}`, ToastAndroid.SHORT)
             update(detail?.id, {
                 name: detail?.name,
@@ -71,17 +87,36 @@ const DashboardScreen = () => {
                 endDate: detail?.endDate,
                 processDay: detail?.processDay + 1,
                 totalTargetDay: detail?.totalTargetDay,
-                completeDate: dateToDay(completeDate),
-                isCompleted: detail?.endDate === completeDate,
+                completeDate: dateInternationalFormat(completeDate),
+                isCompleted: end.getDate() === completeDate.getDate(),
                 reminder: detail?.reminder,
                 sync: false
             })
+            if(end.getDate() === completeDate.getDate()) {
+                cancelNotification(detail?.id)
+            } else {
+                scheduleNotification({
+                    id: detail?.id!,
+                    title: detail?.name!,
+                    body: getRandomNotification() ?? '',
+                    dateStr: dateInternationalFormat(completeDate),
+                    reminder: detail?.reminder!
+                })
+                scheduleNotification({
+                    id: `reminder-sleep`,
+                    title: `${translateGlobal('Tidur Dulu')}`,
+                    body: getRandomSleepNotification() ?? '',
+                    dateStr: dateInternationalFormat(completeDate),
+                    reminder: `22:0`
+                })
+            }
             getRoutine()
         } catch (error) {
             console.log('error update routine', error)
         }
     }
 
+    // function for handle button complete, modify and delete routine
     const handleAction = (detail: any, type: string) => {
         if (type === 'complete') {
             updateRoutine(detail)
@@ -113,21 +148,34 @@ const DashboardScreen = () => {
         }
     }
 
+    // function for filter data complete and not complete
+    const onFilter = (type: boolean) => {
+        if(type) setListRoutine(listRoutineMain.filter((item: any) => item.isCompleted))
+        else setListRoutine(listRoutineMain.filter((item: any) => !item.isCompleted))
+        setIsCompleted(type)
+    }
+
     useEffect(() => {
         if (isFocused) getRoutine()
-        return () => {
-            setListRoutine([])
-        }
     }, [isFocused])
 
+    useEffect(() => {
+        return () => {
+            setIsCompleted(false)
+            setListRoutine([])
+            setListRoutineMain([])   
+        }
+    }, [])
+
     if (loading) return <Loading />
-    if (listRoutine.length === 0) return <Empty />
+    if (listRoutineMain.length === 0) return <Empty />
     return (
         <>
+            <Info totalRoutines={listRoutine.length} isCompleted={isCompleted}/>
             <FlatList
                 data={listRoutine}
                 keyExtractor={(_, index: number) => index.toString()}
-                style={styles.flatlist}
+                contentContainerStyle={styles.flatlist}
                 ListEmptyComponent={<View style={styles.emptyList}><Text>{translateGlobal('Belum ada rutinitas yang kamu selesain')}</Text></View>}
                 renderItem={({ item }) =>
                     <RoutineItem
@@ -137,7 +185,9 @@ const DashboardScreen = () => {
                         }}
                     />
                 }
+                scrollEventThrottle={16}
             />
+            <Filter isCompleted={isCompleted} onPress={onFilter} />
         </>
     )
 }

@@ -2,6 +2,7 @@ import { StyleSheet, View } from "react-native"
 import { Text } from "react-native-paper"
 import useGlobal from "@shared/hooks"
 import ActionSheet from "react-native-actions-sheet"
+import { dimensionHeight } from "@shared/utils/constant"
 
 const BottomSheetInfo = ({ id }: { id: string }) => {
     const { translateGlobal } = useGlobal()
@@ -16,9 +17,10 @@ const BottomSheetInfo = ({ id }: { id: string }) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: dimensionHeight * 0.2
     }
 })
 

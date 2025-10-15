@@ -4,15 +4,24 @@ import { dimensionHeight, dimensionWidth, white } from "@shared/utils/constant"
 import { useAtom } from "jotai"
 import useGlobal from "@shared/hooks"
 import { descRoutineAtom, themeAtom } from "@shared/atom/atomSetting"
+import Badge from "./Badge"
+import { languageAtom } from "@shared/atom/atomSetting"
 
 const RoutineItem = ({ item, onPress }: { item: any, onPress: (detail: unknown, type: string) => void }) => {
     const [theme] = useAtom(themeAtom)
+    const [language] = useAtom(languageAtom)
     const [descRoutine] = useAtom(descRoutineAtom)
-    const { translateGlobal } = useGlobal()
+    const { translateGlobal, dateWithMonthTextFormat } = useGlobal()
+
+    function routineTodayComplete() {
+        const today = new Date()
+        const completeDate = new Date(item.completeDate)
+        return today >= completeDate
+    }
     return (
         <>
             <Card style={styles.card}>
-                <Card.Title title={item.name} />
+                <Card.Title title={item.name} right={() => item.isCompleted ? <Badge isComplete={item.totalTargetDay == item.processDay} /> : null} />
                 <Card.Content>
                     {
                         descRoutine && item.description && (
@@ -24,17 +33,17 @@ const RoutineItem = ({ item, onPress }: { item: any, onPress: (detail: unknown, 
                     <ProgressBar progress={item.processDay / item.totalTargetDay} color={theme!} />
                     <View style={styles.wrap}>
                         <Text>{item.processDay}/{item.totalTargetDay} {translateGlobal('Hari')}</Text>
-                        <Text>{translateGlobal('Selesai')} {item.isCompleted ? '' : `: ${item.endDate}`}</Text>
+                        <Text>{translateGlobal('Selesai')}: {dateWithMonthTextFormat(item.endDate, language!)}</Text>
                     </View>
                     <View style={styles.wrap}>
-                        {!item.isCompleted && (
-                            <Button
-                                mode="contained"
-                                buttonColor={theme!}
-                                textColor={white}
-                                onPress={() => onPress(item, 'complete')}
-                            >{translateGlobal('Selesai')}</Button>
-                        )}
+                        <Button
+                            mode="contained"
+                            buttonColor={theme!}
+                            textColor={white}
+                            onPress={() => onPress(item, 'complete')}
+                            disabled={item.isCompleted || routineTodayComplete()}
+                            icon={item.isCompleted || routineTodayComplete() ? 'check' : ''}
+                        >{translateGlobal('Selesai')}</Button>
                         <View style={styles.wrapButton}>
                             <Button
                                 mode="outlined"
@@ -59,6 +68,7 @@ const RoutineItem = ({ item, onPress }: { item: any, onPress: (detail: unknown, 
 const styles = StyleSheet.create({
     card: {
         backgroundColor: white,
+        marginBottom: dimensionHeight * 0.015
     },
     wrap: {
         flexDirection: 'row',

@@ -7,7 +7,7 @@ import { DashboardScreenNavigationProp } from "@shared/types/navigation"
 const HeaderRightDashboard = () => {
     const navigation = useNavigation<DashboardScreenNavigationProp>();
     return (
-        <View style={{ flexDirection: 'row', alignItems: 'center', paddingRight: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10 }}>
             <TouchableOpacity onPress={() => navigation.navigate('AddNew')}>
                 <Icon source="plus" color={white} size={sizeIconRegular} />
             </TouchableOpacity>

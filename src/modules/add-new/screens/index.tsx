@@ -74,16 +74,6 @@ const AddNewScreen = () => {
                             </Button>
                         </View>
                     </View>
-                    {/* <TextInput
-                        label={`${translateGlobal('Mau Diingetin Jam Berapa')}?`}
-                        mode="outlined"
-                        value={reminder || ''}
-                        keyboardType="numeric"
-                        style={styles.inputText}
-                        activeOutlineColor={theme!}
-                        disabled={true}
-                        onPress={() => setShowDatePicker(true)}
-                    /> */}
                     {showDatePicker && (
                         <DateTimePicker
                             testID="dateTimePicker"

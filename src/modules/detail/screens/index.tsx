@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useAtom } from 'jotai'
 import { themeAtom } from '@shared/atom/atomSetting'
 import useGlobal from '@shared/hooks'
-import { scheduleNotification } from '@shared/utils'
+import { dateInternationalFormat, scheduleNotification } from '@shared/utils'
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { dark_gray, sizeIconRegular, white } from '@shared/utils/constant'
 
@@ -18,7 +18,7 @@ const DetailScreen = ({ route }: { route: any }) => {
     const [description, setDescription] = useState<string | null>(data?.description)
     const [reminder, setReminder] = useState<string | null>(data?.reminder)
     const [theme] = useAtom(themeAtom)
-    const { translateGlobal, getRandomNotification } = useGlobal()
+    const { translateGlobal, getRandomNotification, getRandomSleepNotification } = useGlobal()
     const navigation = useNavigation()
 
     const { update } = useTableRoutine()
@@ -38,13 +38,22 @@ const DetailScreen = ({ route }: { route: any }) => {
             reminder: reminder,
             sync: false
         })
-        scheduleNotification({
-            id: data?.id,
-            title: name,
-            body: getRandomNotification() ?? '',
-            dateStr: data?.startDate,
-            reminder: reminder
-        })
+        if(!data?.isCompleted) {
+            scheduleNotification({
+                id: data?.id,
+                title: name,
+                body: getRandomNotification() ?? '',
+                dateStr: data?.startDate,
+                reminder: reminder
+            })
+            scheduleNotification({
+                id: `reminder-sleep`,
+                title: `${translateGlobal('Tidur Dulu')}`,
+                body: getRandomSleepNotification() ?? '',
+                dateStr: dateInternationalFormat(new Date()),
+                reminder: `22:0`
+            })
+        }
         ToastAndroid.show(`${translateGlobal('Data berhasil diubah')}`, ToastAndroid.SHORT)
         navigation.goBack()
     }
@@ -82,11 +91,12 @@ const DetailScreen = ({ route }: { route: any }) => {
                         activeOutlineColor={theme!}
                         onChangeText={value => setDescription(value)}
                     />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, marginBottom: 13 }}>
-                        <View style={{ flex: 0.7, borderColor: dark_gray, borderWidth: 1, padding: 10, borderRadius: 5 }}>
-                            <Text variant='bodyMedium'>{reminder ? reminder : `${translateGlobal('Mau Diingetin Jam Berapa')}?`}</Text>
-                        </View>
-                        <View style={{ flex: 0.25 }}>
+                    {!data?.isCompleted && (
+                        <View style={styles.reminder}>
+                            <View style={{ flex: 0.7, borderColor: dark_gray, borderWidth: 1, padding: 10, borderRadius: 5 }}>
+                                <Text variant='bodyMedium'>{reminder ? reminder : `${translateGlobal('Mau Diingetin Jam Berapa')}?`}</Text>
+                            </View>
+                            <View style={{ flex: 0.25 }}>
                             <Button
                                 mode="contained"
                                 buttonColor={theme!}
@@ -96,17 +106,8 @@ const DetailScreen = ({ route }: { route: any }) => {
                             </Button>
                         </View>
                     </View>
-                    {/* <TextInput
-                        label={`${translateGlobal('Mau Diingetin Jam Berapa')}?`}
-                        mode="outlined"
-                        value={reminder || ''}
-                        keyboardType="numeric"
-                        style={{ ...styles.inputText, marginBottom: 10 }}
-                        activeOutlineColor={theme!}
-                        disableKeyboardShortcuts={true}
-                        onPress={() => setShowDatePicker(true)}
-                    /> */}
-                    {showDatePicker && (
+                    )}
+                        {showDatePicker && (
                         <DateTimePicker
                             testID="dateTimePicker"
                             value={new Date()}
@@ -121,11 +122,13 @@ const DetailScreen = ({ route }: { route: any }) => {
                             }}
                         />
                     )}
-                    <Button
-                        mode="contained"
-                        buttonColor={theme!}
-                        onPress={onSubmit}
-                    >{translateGlobal('Ubah')}</Button>
+                    <View style={{ marginTop: 16 }}>
+                        <Button
+                            mode="contained"
+                            buttonColor={theme!}
+                            onPress={onSubmit}
+                        >{translateGlobal('Ubah')}</Button>
+                    </View>
                 </ScrollView>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>

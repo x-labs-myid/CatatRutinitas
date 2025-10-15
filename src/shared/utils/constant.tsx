@@ -96,7 +96,50 @@ export const traslateIndonesia: { [key: string]: { [key: string]: string } } = {
 }
 
 // extras
-export const durationSnackBar = 1500
+export const listMonthID: string[] = [
+    'Januari',
+    'Februari',
+    'Maret',
+    'April',
+    'Mei',
+    'Juni',
+    'Juli',
+    'Agustus',
+    'September',
+    'Oktober',
+    'November',
+    'Desember'
+]
+
+export const listMonthEN: string[] = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+]
+
+export const listMonthMY: string[] = [
+    'Januari',
+    'Februari',
+    'Mac',
+    'April',
+    'Mei',
+    'Jun',
+    'Julai',
+    'Ogos',
+    'September',
+    'Oktober',
+    'November',
+    'Disember'
+]
 
 export const listWordNotification: string[] = [
     "Selamat pagi 🌞! Yuk mulai hari dengan rutinitas positif kamu.",

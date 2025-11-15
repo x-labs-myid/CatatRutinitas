@@ -1,62 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Icon, Text, TextInput } from 'react-native-paper'
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, ToastAndroid, TouchableWithoutFeedback, View } from 'react-native'
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, TouchableWithoutFeedback, View } from 'react-native'
 import styles from './styles'
-import useTableRoutine from '@services/db_local/routine/use'
 import { useNavigation } from '@react-navigation/native'
 import { useAtom } from 'jotai'
 import { themeAtom } from '@shared/atom/atomSetting'
 import useGlobal from '@shared/hooks'
-import { dateInternationalFormat, scheduleNotification } from '@shared/utils'
+import funcHooks from '../function'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { dark_gray, sizeIconRegular, white } from '@shared/utils/constant'
+import { bannerIdAds, fontStandard, sizeIconRegular, white } from '@shared/utils/constant'
+import { BannerAd, BannerAdSize, TestIds, useForeground } from 'react-native-google-mobile-ads'
 
 const DetailScreen = ({ route }: { route: any }) => {
-    const { data } = route.params
+    const navigation = useNavigation() // navigation
+    const { data } = route.params // data param
+    // state
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
     const [name, setName] = useState<string | null>(data?.name)
     const [description, setDescription] = useState<string | null>(data?.description)
     const [reminder, setReminder] = useState<string | null>(data?.reminder)
+    // jotai
     const [theme] = useAtom(themeAtom)
-    const { translateGlobal, getRandomNotification, getRandomSleepNotification } = useGlobal()
-    const navigation = useNavigation()
+    // hooks
+    const { translateGlobal } = useGlobal()
+    const { onSubmit } = funcHooks()
 
-    const { update } = useTableRoutine()
+    const bannerRef = useRef<BannerAd>(null)
+    const bannerId = __DEV__ ? TestIds.BANNER : bannerIdAds
 
-    function onSubmit() {
-        if (!name || !description) return ToastAndroid.show(`${translateGlobal('Semua field harus diisi')}`, ToastAndroid.SHORT)
-        if (!reminder) return ToastAndroid.show(`${translateGlobal('Isi jam pengingatnya')}`, ToastAndroid.SHORT)
-        update(data?.id, {
-            name: name ?? data?.name,
-            description: description ?? data?.description,
-            startDate: data?.startDate,
-            endDate: data?.endDate,
-            processDay: data?.processDay,
-            completeDate: data?.completeDate,
-            totalTargetDay: data?.totalTargetDay,
-            isCompleted: data?.isCompleted,
-            reminder: reminder,
-            sync: false
-        })
-        if(!data?.isCompleted) {
-            scheduleNotification({
-                id: data?.id,
-                title: name,
-                body: getRandomNotification() ?? '',
-                dateStr: data?.startDate,
-                reminder: reminder
-            })
-            scheduleNotification({
-                id: `reminder-sleep`,
-                title: `${translateGlobal('Tidur Dulu')}`,
-                body: getRandomSleepNotification() ?? '',
-                dateStr: dateInternationalFormat(new Date()),
-                reminder: `22:0`
-            })
-        }
-        ToastAndroid.show(`${translateGlobal('Data berhasil diubah')}`, ToastAndroid.SHORT)
-        navigation.goBack()
-    }
+    useForeground(() => {
+        Platform.OS === 'ios' && bannerRef.current?.load()
+    })
 
     useEffect(() => {
         return () => {
@@ -93,19 +67,19 @@ const DetailScreen = ({ route }: { route: any }) => {
                     />
                     {!data?.isCompleted && (
                         <View style={styles.reminder}>
-                            <View style={{ flex: 0.7, borderColor: dark_gray, borderWidth: 1, padding: 10, borderRadius: 5 }}>
-                                <Text variant='bodyMedium'>{reminder ? reminder : `${translateGlobal('Mau Diingetin Jam Berapa')}?`}</Text>
+                            <View style={styles.reminderText}>
+                                <Text style={{ fontSize: fontStandard }}>{reminder ? reminder : `${translateGlobal('Mau Diingetin Jam Berapa')}?`}</Text>
                             </View>
-                            <View style={{ flex: 0.25 }}>
-                            <Button
-                                mode="contained"
-                                buttonColor={theme!}
-                                onPress={() => setShowDatePicker(true)}
-                            >
-                                <Icon source="clock-outline" color={white} size={sizeIconRegular} />
-                            </Button>
+                            <View style={styles.reminderBtn}>
+                                <Button
+                                    mode="contained"
+                                    buttonColor={theme!}
+                                    onPress={() => setShowDatePicker(true)}
+                                >
+                                    <Icon source="clock-outline" color={white} size={sizeIconRegular} />
+                                </Button>
+                            </View>
                         </View>
-                    </View>
                     )}
                         {showDatePicker && (
                         <DateTimePicker
@@ -122,15 +96,21 @@ const DetailScreen = ({ route }: { route: any }) => {
                             }}
                         />
                     )}
-                    <View style={{ marginTop: 16 }}>
+                    <View style={styles.wrapBtn}>
                         <Button
                             mode="contained"
                             buttonColor={theme!}
-                            onPress={onSubmit}
+                            onPress={() => {
+                                if(onSubmit({ name: name!, description: description!, reminder: reminder!, data })) {
+                                    navigation.goBack()
+                                }
+                            }}
+                            labelStyle={{ fontSize: fontStandard }}
                         >{translateGlobal('Ubah')}</Button>
                     </View>
                 </ScrollView>
             </TouchableWithoutFeedback>
+            <BannerAd ref={bannerRef} unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}/>
         </KeyboardAvoidingView>
     )
 }

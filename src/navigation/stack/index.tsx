@@ -25,6 +25,7 @@ const AuthenticatedStack = ({ user, theme }: { user: string | null, theme: strin
                 headerTitleStyle: { color: white },
                 headerTintColor: white,
                 contentStyle: { backgroundColor: white },
+                headerShadowVisible: false
             }}
         >
             <Stack.Screen

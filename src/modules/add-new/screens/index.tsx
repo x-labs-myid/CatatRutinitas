@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button, Icon, Text, TextInput } from 'react-native-paper'
-import { ScrollView, View } from 'react-native'
+import { Platform, ScrollView, View } from 'react-native'
 import styles from './styles'
 import CalendarRangePicker from '@shared/components/CalendarRangePicker'
 import { useAtom } from 'jotai'
@@ -9,7 +9,8 @@ import ScrollKeyboard from '@shared/components/ScrollKeyboard'
 import { themeAtom } from '@shared/atom/atomSetting'
 import useGlobal from '@shared/hooks'
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { dark_gray, sizeIconRegular, white } from '@shared/utils/constant'
+import { sizeIconRegular, bannerIdAds, white, fontStandard } from '@shared/utils/constant'
+import { BannerAd, BannerAdSize, TestIds, useForeground } from 'react-native-google-mobile-ads'
 
 const AddNewScreen = () => {
     const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
@@ -21,6 +22,13 @@ const AddNewScreen = () => {
     const [reminder, setReminder] = useAtom(atomReminder)
     const [theme] = useAtom(themeAtom)
     const { translateGlobal } = useGlobal()
+
+    const bannerRef = useRef<BannerAd>(null)
+    const bannerId = __DEV__ ? TestIds.BANNER : bannerIdAds
+
+    useForeground(() => {
+        Platform.OS === 'ios' && bannerRef.current?.load()
+    })
 
     useEffect(() => {
         return () => {
@@ -60,11 +68,11 @@ const AddNewScreen = () => {
                         activeOutlineColor={theme!}
                         onChangeText={value => setDescription(value)}
                     />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
-                        <View style={{ flex: 0.7, borderColor: dark_gray, borderWidth: 1, padding: 10, borderRadius: 5 }}>
-                            <Text variant='bodyMedium'>{reminder ? reminder : `${translateGlobal('Mau Diingetin Jam Berapa')}?`}</Text>
+                    <View style={styles.reminder}>
+                        <View style={styles.reminderText}>
+                            <Text style={{ fontSize: fontStandard }}>{reminder ? reminder : `${translateGlobal('Mau Diingetin Jam Berapa')}?`}</Text>
                         </View>
-                        <View style={{ flex: 0.25 }}>
+                        <View style={styles.reminderBtn}>
                             <Button
                                 mode="contained"
                                 buttonColor={theme!}
@@ -91,6 +99,7 @@ const AddNewScreen = () => {
                     )}
                 </ScrollView>
             </ScrollKeyboard>
+            <BannerAd ref={bannerRef} unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}/>
         </>
     )
 }

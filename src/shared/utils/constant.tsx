@@ -15,9 +15,10 @@ export const dark_gray = `#66757F`
 export const dark = `#15202B`
 
 // Font
+export const fontSmall = 8 * (dimensionWidth / 375)
 export const fontStandard = 12 * (dimensionWidth / 375)
-export const fontTitle = 15 * (dimensionWidth / 375)
-export const fontExtra = 18 * (dimensionWidth / 375)
+export const fontTitle = 14 * (dimensionWidth / 375)
+export const fontExtra = 16 * (dimensionWidth / 375)
 export const font = {
     BrandonRegular: 'HvDTrial Brandon Grotesque Regular',
     BrandonBold: 'HvDTrial Brandon Grotesque Bold',
@@ -26,9 +27,11 @@ export const font = {
 }
 
 // Icon
-export const sizeIconRegular = 24
-export const sizeIconExtra = 100
-export const border_radius_button = 7.5
+export const sizeIconSmall = 10 * (dimensionWidth / 375)
+export const sizeIconRegular = 16 * (dimensionWidth / 375)
+export const sizeIconMedium = 24 * (dimensionWidth / 375)
+export const sizeIconExtra = 40 * (dimensionWidth / 375)
+export const border_radius_button = 7.5 * (dimensionWidth / 375)
 
 // Notification
 export const notificationChannelId = `Routine`
@@ -278,3 +281,6 @@ export const listWordSleepNotificationMY: string[] = [
     "Esok nak buat rutin positif? Tidur dulu lah 🌟",
     "Selamat malam, tenaga esok bermula dari tidur malam ni 🌜",
 ];
+
+export const bannerIdAds: string = `ca-app-pub-9452447376164923/6313312851`
+export const interstitialIdAds: string = `ca-app-pub-9452447376164923/8852858048`

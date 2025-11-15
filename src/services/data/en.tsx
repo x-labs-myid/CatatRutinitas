@@ -56,13 +56,15 @@ const wordsEN: Record<string, string> = {
     'Belum ada info terbaru': 'No new information',
     'Semua': 'All',
     'Dikerjain': 'In Progress',
-    'Belum ada rutinitas yang kamu selesain': 'No routine available',
+    'Ga ada rutinitas': 'No routine available',
     'Yang belum kamu selesain': 'What you haven’t completed',
     'Yang udah kamu selesain': 'What you’ve completed',
     'Rutinitas': 'Routine',
     'Kamu punya': 'You have',
     'Sukses': 'Success',
-    'Gagal': 'Failed'
+    'Gagal': 'Failed',
+    'Dukung Kami': 'Support Us',
+    'Nama berhasil diubah': 'Name successfully changed'
 }
 
 export default wordsEN

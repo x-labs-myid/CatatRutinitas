@@ -1,4 +1,4 @@
-import { dimensionHeight, dimensionWidth, font, white } from "@shared/utils/constant";
+import { dark_gray, dimensionHeight, dimensionWidth, font, fontStandard, white } from "@shared/utils/constant";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     inputText: {
         marginVertical: 5,
         fontFamily: font.BrandonRegular,
+        fontSize: fontStandard,
         backgroundColor: white
     },
     reminder: {
@@ -17,7 +18,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 10,
-    }
+        gap: 4
+    },
+    reminderText: { flex: 0.8, borderColor: dark_gray, borderWidth: 1, padding: 10, borderRadius: 5},
+    reminderBtn: { flex: 0.2 },
+    wrapBtn: { position: 'absolute', bottom: 10, left: 0, right: 0, paddingHorizontal: dimensionWidth * 0.05, }
 })
 
 export default styles

@@ -13,7 +13,7 @@ export const setupNotification = async () => {
     });
 }
 
-export const scheduleNotification = async ({ id, title, body, dateStr, reminder  }: { id: string, title: string, body: string, dateStr: string, reminder : string }) => {
+export const scheduleNotification = async ({ id, title, body, dateStr, reminder }: { id: string, title: string, body: string, dateStr: string, reminder : string }) => {
     const splitReminder = reminder.split(':')
     const date = new Date(dateStr);
     date.setHours(Number(splitReminder[0]));
@@ -85,6 +85,25 @@ export const countDiffDay = (startDate: Date, endDate: Date) => {
 
 export const capitalizeFirstLetter = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export const compare2Date = (date1: Date, date2: Date, operator: string) => {
+    // date1 selalu sama dengan date2
+    if(operator === '=') return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()
+    // date1 selalu lebih besar dari date2
+    if(operator === '>') {
+        if(date1.getMonth() > date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
+        if(date1.getMonth() === date2.getMonth() && date1.getFullYear() > date2.getFullYear()) return true
+        if(date1.getDate() > date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
+        return false
+    }
+    // date1 selalu lebih kecil dari date2
+    if(operator === '<') {
+        if(date1.getMonth() < date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
+        if(date1.getMonth() === date2.getMonth() && date1.getFullYear() < date2.getFullYear()) return true
+        if(date1.getDate() < date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
+        return false
+    }
 }
 
 

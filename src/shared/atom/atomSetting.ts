@@ -1,5 +1,4 @@
 import { atomWithStorage } from 'jotai/utils';
-import { Indonesia, primary, regular } from '@shared/utils/constant';
 import { mmkvStorage } from '@services/stores/mmkv';
 
 export const userAtom = atomWithStorage<string | null>('user', null, mmkvStorage);

@@ -1,6 +1,6 @@
-import { useState } from "react"
-import { dark, white } from "@shared/utils/constant"
-import { ScrollView, View, Text, Linking } from "react-native"
+import { useEffect, useRef, useState } from "react"
+import { bannerIdAds, dark, interstitialIdAds, white } from "@shared/utils/constant"
+import { Platform, ScrollView, View, Text, Linking, ToastAndroid } from "react-native"
 import { Button, Card, List, TextInput, Switch } from "react-native-paper"
 import styles from "./styles"
 import { useAtom } from "jotai"
@@ -11,25 +11,75 @@ import { SheetManager } from "react-native-actions-sheet"
 import BottomSheetTheme from "../components/BottomSheetTheme"
 import useGlobal from "@shared/hooks"
 import BottomSheetInfo from "../components/BottomSheetInfo"
+import { AdEventType, BannerAd, BannerAdSize, InterstitialAd, TestIds, useForeground } from "react-native-google-mobile-ads"
 
 const SettingScreen = () => {
     const [name, setName] = useState<string>('')
+    const [loaded, setLoaded] = useState(false);
     const [user, setUser] = useAtom(userAtom)
     const [language, setLanguage] = useAtom(languageAtom)
     const { translateGlobal } = useGlobal()
     const [descRoutine, setDescRoutine] = useAtom(descRoutineAtom)
     const [theme] = useAtom(themeAtom)
 
+    const interstitialAdRef = useRef(
+        InterstitialAd.createForAdRequest(__DEV__ ? TestIds.INTERSTITIAL : interstitialIdAds)
+    );
+    const interstitialAd = interstitialAdRef.current;
+    const bannerId = __DEV__ ? TestIds.BANNER : bannerIdAds
+    const bannerRef = useRef<BannerAd>(null)
+
     const updateName = () => {
         setUser(name)
         setName('')
+        ToastAndroid.show(`${translateGlobal('Nama berhasil diubah')}`, ToastAndroid.SHORT)
     }
+
+    useForeground(() => {
+        Platform.OS === 'ios' && bannerRef.current?.load()
+    })
+
+    useEffect(() => {
+        const unsubscribeLoaded = interstitialAd.addAdEventListener(AdEventType.LOADED, () => {
+            console.log("✅ Interstitial ad loaded");
+            setLoaded(true);
+        });
+
+        const unsubscribeFailed = interstitialAd.addAdEventListener(AdEventType.ERROR, (error) => {
+            console.log("❌ Failed to load interstitial ad:", error);
+            setLoaded(false);
+        });
+
+        const unsubscribeClosed = interstitialAd.addAdEventListener(AdEventType.CLOSED, () => {
+            console.log("🧹 Ad closed, reload new ad...");
+            interstitialAd.load();
+        });
+
+        // load pertama kali
+        interstitialAd.load();
+
+        return () => {
+            unsubscribeLoaded();
+            unsubscribeFailed();
+            unsubscribeClosed();
+        };
+    }, []);
+
+    const showAd = () => {
+        if (loaded) {
+            interstitialAd.show();
+            setLoaded(false);
+        } else {
+            console.log("⚠️ Iklan belum siap, coba memuat ulang...");
+            interstitialAd.load();
+        }
+    };
 
     return (
         <>
             <ScrollKeyboard>
                 <ScrollView contentContainerStyle={styles.container}>
-                    <Card style={{...styles.cardName, backgroundColor: theme!}}>
+                    <Card style={{ ...styles.cardName, backgroundColor: theme! }}>
                         <Card.Content>
                             <View style={styles.wrap}>
                                 <Text style={styles.text}>{user?.toLocaleUpperCase()}</Text>
@@ -73,7 +123,6 @@ const SettingScreen = () => {
                                 title={translateGlobal('Tampilin Deskripsi')}
                                 titleStyle={styles.textList}
                                 left={() => <List.Icon color={dark} icon="book" />}
-                                // right={() => <Text style={styles.textList}>{descRoutine ? translateGlobal('Ya') : translateGlobal('Ga')}</Text>}
                                 right={() => <Switch color={theme!} value={descRoutine} onValueChange={() => setDescRoutine(!descRoutine)} />}
                             />
                             <List.Item
@@ -92,6 +141,13 @@ const SettingScreen = () => {
                                 title={translateGlobal('Kasih Nilai')}
                                 titleStyle={styles.textList}
                                 left={() => <List.Icon color={dark} icon="star" />}
+                                onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=my.id.diamsyah.apps.catatrutinitas')}
+                            />
+                            <List.Item
+                                title={translateGlobal('Support Iklan')}
+                                titleStyle={styles.textList}
+                                left={() => <List.Icon color={dark} icon="heart" />}
+                                onPress={() => showAd()}
                             />
                         </Card.Content>
                     </Card>
@@ -100,6 +156,7 @@ const SettingScreen = () => {
             <BottomSheetLanguage id="language" />
             <BottomSheetTheme id="theme" />
             <BottomSheetInfo id="info" />
+            <BannerAd ref={bannerRef} unitId={bannerId} size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER} />
         </>
     )
 }

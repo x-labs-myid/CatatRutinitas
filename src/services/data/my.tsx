@@ -56,13 +56,15 @@ const wordsMY: Record<string, string> = {
     'Belum ada info terbaru': 'Belum ada maklumat terkini',
     'Semua': 'Semua',
     'Dikerjain': 'Dikerjakan',
-    'Belum ada rutinitas yang kamu selesain': 'Belum ada rutinitas yang kamu selesaikan',
+    'Ga ada rutinitas': 'Tak ada rutinitas',
     'Yang belum kamu selesain': 'Yang belum kamu siapkan',
     'Yang udah kamu selesain': 'Yang sudah kamu siapkan',
     'Rutinitas': 'Rutin',
     'Kamu punya': 'Kamu ada',
     'Sukses': 'Sukses',
-    'Gagal': 'Gagal'
+    'Gagal': 'Gagal',
+    'Dukung Kami': 'Dukung Kami',
+    'Nama berhasil diubah': 'Nama berjaya diubah'
 }
 
 

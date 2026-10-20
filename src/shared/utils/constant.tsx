@@ -1,5 +1,7 @@
 import { Dimensions } from "react-native"
 
+export const BASE_URL = `https://orangutan.x-labs.my.id/`
+
 // Dimension
 export const dimensionWidth = Dimensions.get('window').width
 export const dimensionHeight = Dimensions.get('window').height
@@ -20,10 +22,10 @@ export const fontStandard = 12 * (dimensionWidth / 375)
 export const fontTitle = 14 * (dimensionWidth / 375)
 export const fontExtra = 16 * (dimensionWidth / 375)
 export const font = {
-    BrandonRegular: 'HvDTrial Brandon Grotesque Regular',
-    BrandonBold: 'HvDTrial Brandon Grotesque Bold',
-    BrandonItalic: 'HvDTrial Brandon Grotesque Italic',
-    BrandonLight: 'HvDTrial Brandon Grotesque Light',
+    Regular: 'PlusJakartaSans-Regular',
+    Bold: 'PlusJakartaSans-Bold',
+    Italic: 'PlusJakartaSans-Italic',
+    Light: 'PlusJakartaSans-Light',
 }
 
 // Icon

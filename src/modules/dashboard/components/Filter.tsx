@@ -9,12 +9,12 @@ const Filter = ({ isCompleted, onPress }: { isCompleted: boolean, onPress: (type
     return (
         <View style={styles.container}>
             <View style={styles.tab}>
-                <TouchableOpacity style={{...styles.tabBtn, backgroundColor: isCompleted ? white : light_gray}} onPress={() => onPress(!isCompleted)}>
+                <TouchableOpacity style={{ ...styles.tabBtn, backgroundColor: isCompleted ? white : light_gray }} onPress={() => onPress(!isCompleted)}>
                     <Icon source="clock-outline" size={sizeIconMedium} color={isCompleted ? dark_gray : theme!} />
                 </TouchableOpacity>
             </View>
             <View style={styles.tab}>
-                <TouchableOpacity style={{...styles.tabBtn, backgroundColor: isCompleted ? light_gray : white}} onPress={() => onPress(!isCompleted)}>
+                <TouchableOpacity style={{ ...styles.tabBtn, backgroundColor: isCompleted ? light_gray : white }} onPress={() => onPress(!isCompleted)}>
                     <Icon source="check-circle" size={sizeIconMedium} color={isCompleted ? theme! : dark_gray} />
                 </TouchableOpacity>
             </View>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         backgroundColor: white,
         opacity: 0.9,
         zIndex: 1,
-        borderWidth: 1,
+        borderWidth: 0.7,
         borderColor: dark_gray,
         borderRadius: 50,
         shadowColor: dark_gray,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.2,
         shadowRadius: 3.84,
-        elevation: 1,
+        elevation: 5,
     },
 
     tab: {

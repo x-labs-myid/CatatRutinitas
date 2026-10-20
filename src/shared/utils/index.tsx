@@ -13,7 +13,7 @@ export const setupNotification = async () => {
     });
 }
 
-export const scheduleNotification = async ({ id, title, body, dateStr, reminder }: { id: string, title: string, body: string, dateStr: string, reminder : string }) => {
+export const scheduleNotification = async ({ id, title, body, dateStr, reminder }: { id: string, title: string, body: string, dateStr: string, reminder: string }) => {
     const splitReminder = reminder.split(':')
     const date = new Date(dateStr);
     date.setHours(Number(splitReminder[0]));
@@ -54,6 +54,48 @@ export const scheduleNotification = async ({ id, title, body, dateStr, reminder 
     }
 }
 
+export const scheduleSleepNotification = async ({ id, title, body }: { id: string, title: string, body: string }) => {
+    const now = new Date();
+    const date = new Date();
+
+    // Set jam 22:00 (10 PM)
+    date.setHours(22);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+
+    // Jika sudah lewat jam 22:00 hari ini, jadwalkan untuk besok
+    if (date.getTime() <= now.getTime()) {
+        date.setDate(date.getDate() + 1);
+    }
+
+    const trigger: TimestampTrigger = {
+        type: TriggerType.TIMESTAMP,
+        timestamp: date.getTime(),
+        // Tidak menggunakan repeatFrequency agar pesan bisa berubah setiap hari
+    };
+
+    try {
+        await notifee.createTriggerNotification(
+            {
+                id: id,
+                title: title,
+                body: body,
+                android: {
+                    channelId: notificationChannelId,
+                },
+                ios: {
+                    categoryId: notificationChannelId,
+                },
+            },
+            trigger
+        );
+        console.log(`Sleep notification scheduled for ${date.toLocaleString()}`);
+    } catch (error) {
+        console.error("Error scheduling sleep notification:", error);
+    }
+}
+
 export const cancelNotification = async (id: string) => {
     await notifee.cancelTriggerNotification(id);
 }
@@ -89,19 +131,19 @@ export const capitalizeFirstLetter = (str: string) => {
 
 export const compare2Date = (date1: Date, date2: Date, operator: string) => {
     // date1 selalu sama dengan date2
-    if(operator === '=') return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()
+    if (operator === '=') return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()
     // date1 selalu lebih besar dari date2
-    if(operator === '>') {
-        if(date1.getMonth() > date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
-        if(date1.getMonth() === date2.getMonth() && date1.getFullYear() > date2.getFullYear()) return true
-        if(date1.getDate() > date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
+    if (operator === '>') {
+        if (date1.getMonth() > date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
+        if (date1.getMonth() === date2.getMonth() && date1.getFullYear() > date2.getFullYear()) return true
+        if (date1.getDate() > date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
         return false
     }
     // date1 selalu lebih kecil dari date2
-    if(operator === '<') {
-        if(date1.getMonth() < date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
-        if(date1.getMonth() === date2.getMonth() && date1.getFullYear() < date2.getFullYear()) return true
-        if(date1.getDate() < date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
+    if (operator === '<') {
+        if (date1.getMonth() < date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
+        if (date1.getMonth() === date2.getMonth() && date1.getFullYear() < date2.getFullYear()) return true
+        if (date1.getDate() < date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear()) return true
         return false
     }
 }

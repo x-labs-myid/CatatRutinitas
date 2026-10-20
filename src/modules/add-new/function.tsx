@@ -14,6 +14,7 @@ const funcHooks = () => {
     const [totalTargetDay, setTotalTargetDay] = useAtom(atomTotalTargetDay)
     const [reminder, setReminder] = useAtom(atomReminder)
     const { translateGlobal, getRandomNotification } = useGlobal()
+
     async function onSubmit() {
         if (!name || !description || !startDate || !endDate || !reminder) return ToastAndroid.show(`${translateGlobal('Semua field harus diisi')}`, ToastAndroid.SHORT)
         const today = new Date()

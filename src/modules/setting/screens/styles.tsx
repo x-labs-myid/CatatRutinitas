@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         marginTop: dimensionHeight * 0.015,
     },
     inputText: {
-        fontFamily: font.BrandonRegular,
+        fontFamily: font.Regular,
         backgroundColor: white
     },
     wrap: {
@@ -25,17 +25,17 @@ const styles = StyleSheet.create({
         marginBottom: dimensionHeight * 0.015
     },
     text: {
-        fontFamily: font.BrandonRegular,
+        fontFamily: font.Regular,
         color: white,
         fontSize: fontExtra,
         fontWeight: 'bold'
     },
     textHeader: {
-        fontFamily: font.BrandonBold,
+        fontFamily: font.Bold,
         fontSize: fontTitle
     },
     textList: {
-        fontFamily: font.BrandonRegular,
+        fontFamily: font.Regular,
         fontSize: fontStandard
     }
 })

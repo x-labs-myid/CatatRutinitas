@@ -32,7 +32,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -49,18 +49,20 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>HvDTrial_Brandon_Grotesque_black-BF64a625c944b08.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_black_italic-BF64a625c93406c.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_bold-BF64a625c9151d5.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_bold_italic-BF64a625c93b0ce.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_light-BF64a625c93e709.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_light_italic-BF64a625c93ac64.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_medium-BF64a625c84a521.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_medium_italic-BF64a625c928c55.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_regular-BF64a625c9311e1.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_regular_italic-BF64a625c94445e.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_thin-BF64a625c9034b9.otf</string>
-		<string>HvDTrial_Brandon_Grotesque_thin_italic-BF64a625c918a96.otf</string>
+		<string>PlusJakartaSans-Bold.ttf</string>
+		<string>PlusJakartaSans-BoldItalic.ttf</string>
+		<string>PlusJakartaSans-ExtraBold.ttf</string>
+		<string>PlusJakartaSans-ExtraBoldItalic.ttf</string>
+		<string>PlusJakartaSans-ExtraLight.ttf</string>
+		<string>PlusJakartaSans-ExtraLightItalic.ttf</string>
+		<string>PlusJakartaSans-Italic.ttf</string>
+		<string>PlusJakartaSans-Light.ttf</string>
+		<string>PlusJakartaSans-LightItalic.ttf</string>
+		<string>PlusJakartaSans-Medium.ttf</string>
+		<string>PlusJakartaSans-MediumItalic.ttf</string>
+		<string>PlusJakartaSans-Regular.ttf</string>
+		<string>PlusJakartaSans-SemiBold.ttf</string>
+		<string>PlusJakartaSans-SemiBoldItalic.ttf</string>
 	</array>
 	<key>NSUserNotificationUsageDescription</key>
 	<string>Kami akan mengirimkan notifikasi rutinitas.</string>

@@ -2,7 +2,7 @@ import { ToastAndroid } from "react-native"
 import useGlobal from "@shared/hooks"
 import { compare2Date, dateInternationalFormat } from "@shared/utils"
 import useTableRoutine from "@services/db_local/routine/use"
-import { cancelNotification, scheduleNotification } from "@shared/utils"
+import { cancelNotification, scheduleNotification, scheduleSleepNotification } from "@shared/utils"
 import Routine from "@services/db_local/routine/model"
 
 const funcHooks = () => {
@@ -13,9 +13,9 @@ const funcHooks = () => {
     async function autoCompleteRoutine(data: Routine[]) {
         let result: Routine[] = []
         const today = new Date()
-        for(let i = 0; i < data.length; i++) {
+        for (let i = 0; i < data.length; i++) {
             const end = new Date(data[i].endDate)
-            if(!data[i].isCompleted && compare2Date(today, end, '>')) {
+            if (!data[i].isCompleted && compare2Date(today, end, '>')) {
                 update(data[i].id, {
                     name: data[i].name,
                     description: data[i].description,
@@ -68,12 +68,10 @@ const funcHooks = () => {
                     dateStr: dateInternationalFormat(completeDate),
                     reminder: detail?.reminder!
                 })
-                scheduleNotification({
+                scheduleSleepNotification({
                     id: `reminder-sleep`,
                     title: `${translateGlobal('Tidur Dulu')}`,
-                    body: getRandomSleepNotification() ?? '',
-                    dateStr: dateInternationalFormat(completeDate),
-                    reminder: `22:0`
+                    body: getRandomSleepNotification() ?? ''
                 })
             }
             return true

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     },
     inputText: {
         marginVertical: 5,
-        fontFamily: font.BrandonRegular,
+        fontFamily: font.Regular,
         fontSize: fontStandard,
         backgroundColor: white
     },

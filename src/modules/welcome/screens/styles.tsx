@@ -9,14 +9,14 @@ const styles = StyleSheet.create({
     },
     textCenter: {
         textAlign: 'center',
-        fontFamily: font.BrandonRegular
+        fontFamily: font.Regular
     },
     textTitle: {
-        fontFamily: font.BrandonRegular,
+        fontFamily: font.Regular,
         fontSize: fontTitle
     },
     textDesc: {
-        fontFamily: font.BrandonRegular,
+        fontFamily: font.Regular,
         fontSize: fontStandard
     },
     wrapBottom: {

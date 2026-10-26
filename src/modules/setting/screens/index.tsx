@@ -144,15 +144,9 @@ const SettingScreen = () => {
                                 onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=my.id.diamsyah.apps.catatrutinitas')}
                             />
                             <List.Item
-<<<<<<< HEAD
                                 title={translateGlobal('Buat Ngopi')}
                                 titleStyle={styles.textList}
                                 left={() => <List.Icon color={dark} icon="coffee" />}
-=======
-                                title={translateGlobal('Support Iklan')}
-                                titleStyle={styles.textList}
-                                left={() => <List.Icon color={dark} icon="heart" />}
->>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
                                 onPress={() => showAd()}
                             />
                         </Card.Content>

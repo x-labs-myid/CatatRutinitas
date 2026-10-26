@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿import { ToastAndroid } from "react-native"
-=======
-import { ToastAndroid } from "react-native"
->>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
 import { dateInternationalFormat, scheduleNotification, scheduleSleepNotification } from '@shared/utils'
 import useGlobal from '@shared/hooks'
 import useTableRoutine from '@services/db_local/routine/use'
@@ -12,7 +8,6 @@ const funcHooks = () => {
     const { translateGlobal, getRandomNotification, getRandomSleepNotification } = useGlobal()
     async function onSubmit({ name, description, reminder, data }: { name: string, description: string, reminder: string, data: any }) {
         try {
-<<<<<<< HEAD
             const trimmedName = (name || '').trim()
             const trimmedDesc = (description || '').trim()
             if (!trimmedName || !trimmedDesc) return ToastAndroid.show(`${translateGlobal('Semua field harus diisi')}`, ToastAndroid.SHORT)
@@ -20,13 +15,6 @@ const funcHooks = () => {
             update(data?.id, {
                 name: trimmedName ?? data?.name,
                 description: trimmedDesc ?? data?.description,
-=======
-            if (!name || !description) return ToastAndroid.show(`${translateGlobal('Semua field harus diisi')}`, ToastAndroid.SHORT)
-            if (!reminder) return ToastAndroid.show(`${translateGlobal('Isi jam pengingatnya')}`, ToastAndroid.SHORT)
-            update(data?.id, {
-                name: name ?? data?.name,
-                description: description ?? data?.description,
->>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
                 startDate: data?.start_date,
                 endDate: data?.end_date,
                 processDay: data?.process_day,
@@ -39,11 +27,7 @@ const funcHooks = () => {
             if (!data?.isCompleted) {
                 scheduleNotification({
                     id: data?.id,
-<<<<<<< HEAD
                     title: trimmedName,
-=======
-                    title: name,
->>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
                     body: getRandomNotification() ?? '',
                     dateStr: dateInternationalFormat(new Date()),
                     reminder: reminder

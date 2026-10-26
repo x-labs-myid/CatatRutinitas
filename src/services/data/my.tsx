@@ -65,13 +65,9 @@ const wordsMY: Record<string, string> = {
     'Sukses': 'Sukses',
     'Gagal': 'Gagal',
     'Dukung Kami': 'Dukung Kami',
-<<<<<<< HEAD
     'Nama berhasil diubah': 'Nama berjaya diubah',
     'Buat Ngopi': 'Untuk Minum Kopi',
     'Menyimpan': 'Menyimpan',
-=======
-    'Nama berhasil diubah': 'Nama berjaya diubah'
->>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
 }
 
 

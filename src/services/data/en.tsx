@@ -65,13 +65,9 @@ const wordsEN: Record<string, string> = {
     'Sukses': 'Success',
     'Gagal': 'Failed',
     'Dukung Kami': 'Support Us',
-<<<<<<< HEAD
     'Nama berhasil diubah': 'Name successfully changed',
     'Buat Ngopi': 'For a Coffee',
     'Menyimpan': 'Saving',
-=======
-    'Nama berhasil diubah': 'Name successfully changed'
->>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
 }
 
 export default wordsEN

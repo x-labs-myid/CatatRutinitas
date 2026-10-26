@@ -1,34 +1,40 @@
 import { Dimensions } from "react-native"
 
+export const BASE_URL = `https://orangutan.x-labs.my.id/`
+
 // Dimension
 export const dimensionWidth = Dimensions.get('window').width
 export const dimensionHeight = Dimensions.get('window').height
 
 // Color
 export const primary = `#1DA1F2`
-export const red = `#FF5C8D`
-export const green = `#00D26B`
-export const yellow = `#F9E56C`
+export const red = `#dc2626`
+export const green = `#0d9488`
+export const yellow = `#d08700`
+export const black = `#000000`
 export const white = `#FFFFFF`
 export const light_gray = `#E1E8ED`
 export const dark_gray = `#66757F`
 export const dark = `#15202B`
 
 // Font
+export const fontSmall = 8 * (dimensionWidth / 375)
 export const fontStandard = 12 * (dimensionWidth / 375)
-export const fontTitle = 15 * (dimensionWidth / 375)
-export const fontExtra = 18 * (dimensionWidth / 375)
+export const fontTitle = 14 * (dimensionWidth / 375)
+export const fontExtra = 16 * (dimensionWidth / 375)
 export const font = {
-    BrandonRegular: 'HvDTrial Brandon Grotesque Regular',
-    BrandonBold: 'HvDTrial Brandon Grotesque Bold',
-    BrandonItalic: 'HvDTrial Brandon Grotesque Italic',
-    BrandonLight: 'HvDTrial Brandon Grotesque Light',
+    Regular: 'PlusJakartaSans-Regular',
+    Bold: 'PlusJakartaSans-Bold',
+    Italic: 'PlusJakartaSans-Italic',
+    Light: 'PlusJakartaSans-Light',
 }
 
 // Icon
-export const sizeIconRegular = 24
-export const sizeIconExtra = 100
-export const border_radius_button = 7.5
+export const sizeIconSmall = 10 * (dimensionWidth / 375)
+export const sizeIconRegular = 16 * (dimensionWidth / 375)
+export const sizeIconMedium = 24 * (dimensionWidth / 375)
+export const sizeIconExtra = 40 * (dimensionWidth / 375)
+export const border_radius_button = 7.5 * (dimensionWidth / 375)
 
 // Notification
 export const notificationChannelId = `Routine`
@@ -278,3 +284,6 @@ export const listWordSleepNotificationMY: string[] = [
     "Esok nak buat rutin positif? Tidur dulu lah 🌟",
     "Selamat malam, tenaga esok bermula dari tidur malam ni 🌜",
 ];
+
+export const bannerIdAds: string = `ca-app-pub-9452447376164923/6313312851`
+export const interstitialIdAds: string = `ca-app-pub-9452447376164923/8852858048`

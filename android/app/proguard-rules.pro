@@ -8,3 +8,8 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+# Rules to keep classes required by Notifee from being stripped by R8/Proguard
+-keep class io.invertase.notifee.** { *; }
+-keep class app.notifee.** { *; }
+-dontwarn app.notifee.**
+-dontwarn io.invertase.notifee.**

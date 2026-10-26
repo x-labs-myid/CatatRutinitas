@@ -1,4 +1,4 @@
-import { dark, green, primary, red, yellow } from "@shared/utils/constant"
+import { dark, green, primary, red, yellow, black } from "@shared/utils/constant"
 import { View } from "react-native"
 import ActionSheet from "react-native-actions-sheet"
 import { List } from "react-native-paper"
@@ -35,6 +35,12 @@ const BottomSheetTheme = ({ id }: { id: string }) => {
                     left={props => <List.Icon {...props} color={ theme === yellow ? theme! : dark} icon="palette" />}
                     right={() => <View style={{ backgroundColor: yellow, width: 20, height: 20, borderRadius: 100 }}></View>}
                     onPress={() => setTheme(yellow)}
+                />
+                <List.Item
+                    title={translateGlobal('Hitam')}
+                    left={props => <List.Icon {...props} color={ theme === black ? theme! : dark} icon="palette" />}
+                    right={() => <View style={{ backgroundColor: black, width: 20, height: 20, borderRadius: 100 }}></View>}
+                    onPress={() => setTheme(black)}
                 />
             </List.Section>
         </ActionSheet>

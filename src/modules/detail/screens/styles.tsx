@@ -1,22 +1,68 @@
-import { dimensionHeight, dimensionWidth, font, white } from "@shared/utils/constant";
+﻿import { dark_gray, dimensionHeight, dimensionWidth, font, fontStandard, white } from "@shared/utils/constant";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         paddingHorizontal: dimensionWidth * 0.05,
-        paddingVertical: dimensionHeight * 0.01,
+        paddingVertical: dimensionHeight * 0.015,
+        paddingBottom: dimensionHeight * 0.18,
+    },
+    card: {
+        marginBottom: dimensionHeight * 0.015,
+        backgroundColor: white,
+        borderRadius: 12,
+        overflow: 'hidden',
+        elevation: 2,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.08,
+        shadowRadius: 4,
+    },
+    cardContent: {
+        paddingVertical: dimensionHeight * 0.012,
+        gap: 10,
     },
     inputText: {
-        marginVertical: 5,
-        fontFamily: font.BrandonRegular,
-        backgroundColor: white
+        marginVertical: 4,
+        fontFamily: font.Regular,
+        fontSize: fontStandard,
+        backgroundColor: 'transparent',
     },
-    reminder: {
+    reminderRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 10,
+        justifyContent: 'space-between',
+        gap: 10,
+    },
+    reminderInfo: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10,
+        borderWidth: 1,
+        borderColor: dark_gray,
+        borderRadius: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+    },
+    reminderText: {
+        flex: 1,
+        fontFamily: font.Regular,
+        fontSize: fontStandard,
+    },
+    reminderBtn: {
+        borderRadius: 999,
+        overflow: 'hidden',
+    },
+    bottomBar: {
+        position: 'absolute',
+        bottom: dimensionHeight * 0.07,
+        left: 0,
+        right: 0,
+        paddingHorizontal: dimensionWidth * 0.05,
+        paddingVertical: dimensionHeight * 0.012,
+        backgroundColor: 'transparent',
     }
 })
 

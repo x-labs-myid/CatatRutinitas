@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native"
 import { DashboardScreenNavigationProp } from "@shared/types/navigation"
-import { dimensionHeight, sizeIconRegular } from "@shared/utils/constant"
+import { dimensionHeight, fontStandard, fontTitle, sizeIconRegular } from "@shared/utils/constant"
 import { StyleSheet, View } from "react-native"
 import { Button, Icon, Text } from "react-native-paper"
 import { useAtom } from "jotai"
@@ -17,13 +17,14 @@ const Empty = () => {
                 <Icon source="plus" color={theme!} size={sizeIconRegular} />
             </View>
             <View style={styles.wrapText}>
-                <Text variant="titleLarge" style={styles.textCenter}>{translateGlobal('Rutinitas Ga ada')}</Text>
-                <Text variant="bodyMedium" style={styles.textCenter}>{translateGlobal('Buat rutinitas baru dan kerjain konsisten')}!</Text>
+                <Text style={{...styles.textCenter, fontSize: fontTitle}}>{translateGlobal('Rutinitas Ga ada')}</Text>
+                <Text style={{...styles.textCenter, fontSize: fontStandard}}>{translateGlobal('Buat rutinitas baru dan kerjain konsisten')}!</Text>
             </View>
             <Button
                 mode="contained"
                 buttonColor={theme!}
                 onPress={() => navigation.navigate('AddNew')}
+                labelStyle={{ fontSize: fontStandard }}
             >
                 {translateGlobal('Skuy Mulai')}
             </Button>

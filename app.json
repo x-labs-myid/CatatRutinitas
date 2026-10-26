@@ -1,4 +1,8 @@
 {
   "name": "CatatRutinitas",
-  "displayName": "CatatRutinitas"
+  "displayName": "CatatRutinitas",
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-9452447376164923~8064829483",
+    "ios_app_id": "ca-app-pub-9452447376164923~8064829483"
+  }
 }

@@ -1,4 +1,4 @@
-import { ToastAndroid, View } from 'react-native';
+﻿import { ToastAndroid, View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper'
 import styles from './styles';
 import { useState } from 'react';
@@ -14,8 +14,9 @@ const WelcomeScreen = () => {
     const { translateGlobal } = useGlobal()
 
     function next() {
-        if(name == '') return ToastAndroid.show(`${translateGlobal('Isi nama kamu dulu')}`, ToastAndroid.SHORT)
-        setUser(name)
+        const trimmed = name.trim()
+        if(trimmed == '') return ToastAndroid.show(`${translateGlobal('Isi nama kamu dulu')}`, ToastAndroid.SHORT)
+        setUser(trimmed)
     }
 
     return (
@@ -34,6 +35,8 @@ const WelcomeScreen = () => {
                         value={name}
                         onChangeText={value => setName(value)}
                         style={styles.inputText}
+                        onSubmitEditing={next}
+                        returnKeyType="done"
                     />
                 </View>
             </View>

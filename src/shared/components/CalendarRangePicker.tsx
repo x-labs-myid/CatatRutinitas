@@ -20,15 +20,16 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
         input.setHours(0, 0, 0, 0)
         return input < today
     }
-    
+
 
     const onDayPress = (day: any) => {
         const selectedDate = day.dateString
         if (!startDate || (startDate && endDate)) {
-            // if(isBeforeToday(selectedDate)) return ToastAndroid.show(`${translateGlobal('Tanggal mulai ga boleh kurang dari hari ini')}`, ToastAndroid.SHORT)
+            if(isBeforeToday(selectedDate)) return ToastAndroid.show(`${translateGlobal('Tanggal mulai ga boleh kurang dari hari ini')}`, ToastAndroid.SHORT)
             setStartDate(selectedDate)
             setEndDate(null)
         } else if (startDate && !endDate) {
+            if(isBeforeToday(selectedDate)) return ToastAndroid.show(`${translateGlobal('Tanggal akhir ga boleh kurang dari hari ini')}`, ToastAndroid.SHORT)
             if (selectedDate < startDate) {
                 setStartDate(selectedDate)
             } else {
@@ -97,11 +98,12 @@ const CalendarRangePicker = ({onDateChange}: {onDateChange: (startDate: string, 
 
     return (
         <View style={styles.container}>
-            <Calendar
-                markingType="period"
-                markedDates={generateMarkedDates()}
-                onDayPress={onDayPress}
-            />
+          <Calendar
+            minDate={new Date()}
+            markingType="period"
+            markedDates={generateMarkedDates()}
+            onDayPress={onDayPress}
+          />
         </View>
     )
 }

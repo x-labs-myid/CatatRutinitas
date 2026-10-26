@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿import { dark_gray, dimensionHeight, dimensionWidth, font, fontStandard, white } from "@shared/utils/constant";
+=======
+import { dark_gray, dimensionHeight, dimensionWidth, font, fontStandard, white } from "@shared/utils/constant";
+>>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
@@ -24,14 +28,22 @@ const styles = StyleSheet.create({
         gap: 10,
     },
     inputText: {
+<<<<<<< HEAD
         marginVertical: 4,
         fontFamily: font.Regular,
         fontSize: fontStandard,
         backgroundColor: 'transparent',
+=======
+        marginVertical: 5,
+        fontFamily: font.Regular,
+        fontSize: fontStandard,
+        backgroundColor: white
+>>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
     },
     reminderRow: {
         flexDirection: 'row',
         alignItems: 'center',
+<<<<<<< HEAD
         justifyContent: 'space-between',
         gap: 10,
     },
@@ -64,6 +76,14 @@ const styles = StyleSheet.create({
         paddingVertical: dimensionHeight * 0.012,
         backgroundColor: 'transparent',
     }
+=======
+        marginTop: 10,
+        gap: 4
+    },
+    reminderText: { flex: 0.8, borderColor: dark_gray, borderWidth: 1, padding: 10, borderRadius: 5},
+    reminderBtn: { flex: 0.2 },
+    wrapBtn: { position: 'absolute', bottom: 10, left: 0, right: 0, paddingHorizontal: dimensionWidth * 0.05, }
+>>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
 })
 
 export default styles

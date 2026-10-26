@@ -62,8 +62,13 @@ const HeaderRightDashboard = () => {
         onPress={showAd}
         style={[styles.btnSupport, { backgroundColor: theme! }]}
       >
+<<<<<<< HEAD
         <Icon source="coffee" color={white} size={sizeIconRegular - 4} />
         <Text style={styles.text}>{translateGlobal("Buat Ngopi")}</Text>
+=======
+        <Icon source="heart" color={white} size={sizeIconRegular - 4} />
+        <Text style={styles.text}>{translateGlobal("Dukung Kami")}</Text>
+>>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("AddNew")}>
         <Icon source="plus" color={white} size={sizeIconRegular} />

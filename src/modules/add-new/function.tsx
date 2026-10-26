@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿import { ToastAndroid } from 'react-native';
 import { scheduleNotification } from '@shared/utils';
 import useGlobal from '@shared/hooks';
@@ -109,3 +110,75 @@ const funcHooks = () => {
 };
 
 export default funcHooks;
+=======
+import { ToastAndroid } from "react-native"
+import { scheduleNotification } from '@shared/utils'
+import useGlobal from '@shared/hooks'
+import useTableCompleteRoutine from '@services/db_local/complete_routine/use'
+import useTableRoutine from '@services/db_local/routine/use'
+import { useAtom } from 'jotai'
+import { atomDescription, atomEndDate, atomReminder, atomName, atomStartDate, atomTotalTargetDay } from './atom'
+
+const funcHooks = () => {
+    const [name, setName] = useAtom(atomName)
+    const [description, setDescription] = useAtom(atomDescription)
+    const [startDate, setStartDate] = useAtom(atomStartDate)
+    const [endDate, setEndDate] = useAtom(atomEndDate)
+    const [totalTargetDay, setTotalTargetDay] = useAtom(atomTotalTargetDay)
+    const [reminder, setReminder] = useAtom(atomReminder)
+    const { translateGlobal, getRandomNotification } = useGlobal()
+
+    async function onSubmit() {
+        if (!name || !description || !startDate || !endDate || !reminder) return ToastAndroid.show(`${translateGlobal('Semua field harus diisi')}`, ToastAndroid.SHORT)
+        const today = new Date()
+        const start = new Date(startDate)
+        const end = new Date(endDate)
+        const result = await useTableRoutine().insert({
+            name: name,
+            description: description,
+            startDate: startDate,
+            endDate: endDate,
+            processDay: 0,
+            completeDate: '',
+            totalTargetDay: totalTargetDay,
+            isCompleted: false,
+            reminder: reminder,
+            sync: false
+        })
+        if (result) {
+            useTableCompleteRoutine().insert({
+                routineId: result,
+                date: '',
+                note: '',
+                sync: false
+            })
+            if (start.getDate() >= today.getDate()) {
+                scheduleNotification({
+                    id: result,
+                    title: name,
+                    body: getRandomNotification() ?? '',
+                    dateStr: startDate,
+                    reminder: reminder
+                })
+            }
+            setName(null)
+            setDescription(null)
+            setStartDate(null)
+            setEndDate(null)
+            setTotalTargetDay(0)
+            setReminder(null)
+            ToastAndroid.show(`${translateGlobal('Data berhasil disimpan')}`, ToastAndroid.SHORT)
+            return true
+        } else {
+            ToastAndroid.show(`${translateGlobal('Data gagal disimpan')}`, ToastAndroid.SHORT)
+            return false
+        }
+    }
+
+    return {
+        onSubmit
+    }
+}
+
+export default funcHooks
+>>>>>>> 947ca2c2a2c15dd8ed9f59135d6717fcc61e6749
